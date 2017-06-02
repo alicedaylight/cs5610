@@ -99,3 +99,29 @@ a:hover{
 .no-margin-left {
     margin-left: 0;
 }
+
+.thirty-margin-right {
+    margin-right: 30px;
+}
+
+.overflow {
+    overflow-y: scroll;top: 0px;bottom: 0px;position: absolute;
+    left: 0px;margin-top: 50px;padding-top: 15px;margin-bottom: 50px;
+    border:1px solid #cecece;
+}
+
+.overflow-y {
+    overflow-y: scroll;
+    top: 0px;
+    bottom: 0px;
+    position: absolute;
+    left: 0px;
+    margin-top: 50px;
+    padding-top: 15px;
+    margin-bottom: 50px;
+}
+
+.cl-widget-header {
+    font-size: 36px;
+    text-align: center;
+}
