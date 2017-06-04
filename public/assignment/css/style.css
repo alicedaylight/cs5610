@@ -19,6 +19,10 @@ a:hover{
     padding-bottom: 10%;
 }
 
+.cl-low-padding {
+    padding-bottom: 5%;
+}
+
 .cl-blue-navbar{
     background-color: #337ab7;
 }
@@ -105,7 +109,8 @@ a:hover{
 }
 
 .overflow {
-    overflow-y: scroll;top: 0px;bottom: 0px;position: absolute;
+    /*overflow-y: scroll;*/
+    top: 0px;bottom: 0px;position: absolute;
     left: 0px;margin-top: 50px;padding-top: 15px;margin-bottom: 50px;
     border:1px solid #cecece;
 }
@@ -116,12 +121,18 @@ a:hover{
     bottom: 0px;
     position: absolute;
     left: 0px;
-    margin-top: 50px;
-    padding-top: 15px;
-    margin-bottom: 50px;
+    padding-top: 70px;
+    border:1px solid #cecece;
+
 }
 
 .cl-widget-header {
     font-size: 36px;
     text-align: center;
 }
+
+.cl-subHeading {
+    font-size: 26px;
+    text-align: center;
+}
+
