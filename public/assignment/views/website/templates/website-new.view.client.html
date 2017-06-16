@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Website New</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
     <div class="row container-fluid">
 
         <div class="col-sm-4 hidden-xs">
             <div class="navbar-text pull-left cl-text-white no-margin-left" >
-                <a href="website-list.html" class="cl-text-white">
+                <a href="#!/user/:uid/website" class="cl-text-white">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
@@ -35,12 +23,12 @@
             <div class="navbar-text pull-left cl-text-white no-margin-left">
             </div>
             <div class="navbar-text pull-right thirty-margin-right">
-                <a href="website-list.html" class="cl-text-white">
+                <a href="#!/user/:uid/website" class="cl-text-white">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
             <div class="navbar-text pull-left cl-text-white no-margin-left visible-xs">
-                <a href="website-list.html" class="cl-text-white">
+                <a href="#!/user/:uid/website" class="cl-text-white">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
@@ -86,16 +74,22 @@
 
     </div>
 
+    <!--// NO USERNAME AND PASSWORD -->
+    <!--// ONLY NAME AND DESCRIPTION-->
+    <!--// NO-NG-MODEL-->
+
     <div class="col-xs-12 col-sm-8 pull-right">
         <form>
             <div class="form-group">
                 <label for="exampleInputName">Name</label>
-                <input type="text" class="form-control" id="exampleInputName" placeholder="Name">
+                <input ng-model="model.user.name"
+                       type="text" class="form-control" id="exampleInputName" placeholder="Name">
 
             </div>
             <div class="form-group">
                 <label for="exampleInputDescription">Description</label>
-                <textarea input type="text" class="form-control" id="exampleInputDescription" placeholder="Description" rows="5"></textarea>
+                <textarea input ng-model="model.user.description"
+                          type="text" class="form-control" id="exampleInputDescription" placeholder="Description" rows="5"></textarea>
 
             </div>
 
@@ -106,11 +100,9 @@
 
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">
     <div class="container-fuild">
-        <a href="profile.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a href="#!/user/:uid" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-user"></span>
         </a>
     </div>
 </nav>
 
-</body>
-</html>

@@ -1,0 +1,42 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                Widget List
+            </a>
+            <p class="navbar-text pull-right">
+                <a href="#" class="navbar-link">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+
+    <div ng-repeat="widget in model.wdigets" class="widgets">
+        <div class="wd-widget-toolbar">
+            <a href="widget-heading-edit.html">
+                <span class="glyphicon glyphicon-cog"></span>
+            </a>
+            <span class="glyphicon glyphicon-align-justify"></span>
+        </div>
+        <div ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADING"></div>
+            <div ng-switch-when="IMAGE">
+                <!--<img ng-src="{{widget.url}}" width="widget.width">-->
+                <div ng-include="'views/widget/templates/widget-img.view/client.html'"></div>
+
+            </div>
+            <div ng-switch-when="HTML"
+                 ng-bind-html="model.trust(widget.text)">
+                {{widget.text}}</div>
+            <div ng-switch-when="YOUTUBE">
+                <iframe class="embed-responsive-item"
+                        src="{{model.getYouTubeEmbedUrl(widget.url)}}"></iframe>
+
+                YOUTUBE widget {{widget.url}}</div>
+        </div>
+    </div>
+</div>

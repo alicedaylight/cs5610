@@ -1,27 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Website List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="css/style.css" rel="stylesheet"/>
+<div ng-repeat="widget in widgets">
+    <div ng-switch="widget.widgetType">
+        <div ng-switch-when="HEADING">
+            <ng-include src="'widget-heading.view.client.html'">
+        </div>
+        <div ng-switch-when="IMAGE">
+            <ng-include src="'widget-image.view.client.html'">
+        </div>
+        <div ng-switch-when="YOUTUBE">
+            <ng-include src="'widget-youtube.view.client.html'">
+        </div>
+    </div>
+</div>
 
 
-</head>
-<body>
+<!--stuff below is from previous widget-list-view-->
+
 
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
     <div class="container-fluid">
-        <a class="cl-text-white navbar-brand cl-text-bold" href="profile.html">
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/:uid">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-        <a href="website-new.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a href="#!/user/:uid/website/new" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
-
         <div class="navbar-header">
-            <a class="navbar-brand cl-text-white" href="page-list.html">
+            <a class="navbar-brand cl-text-white" href="#!/user/:uid/website/:wid/page">
                 Website
             </a>
         </div>
@@ -29,29 +33,32 @@
 </nav>
 
 
-<div class="container">
+
+<div ng-repeat="widget in model.widgets" class="container">
+    {{website.name}}
+
     <ul class="list-group borderless">
         <li class="list-group-item">
-            <a href="website-edit.html">
+            <a href="#!/user/:uid/website/:wid">
             <span class="glyphicon glyphicon-cog pull-right"></span>
             Address Book App
             </a>
         </li>
         <li class="list-group-item">
-            <a href="website-edit.html">
+            <a href="#!/user/:uid/website/:wid">
             <span class="glyphicon glyphicon-cog pull-right"></span>
             Blogger
             </a>
 
         </li>
         <li class="list-group-item">
-            <a href="website-edit.html">
+            <a href="#!/user/:uid/website/:wid">
             <span class="glyphicon glyphicon-cog pull-right"></span>
             Blogging App
             </a>
         </li>
         <li class="list-group-item">
-            <a href="website-edit.html">
+            <a href="#!/user/:uid/website/:wid">
             <span class="glyphicon glyphicon-cog pull-right"></span>
             Script Testing App
             </a>
@@ -61,11 +68,8 @@
 
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">
     <div class="container-fuild">
-        <a href="profile.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a href="#!/user/:uid" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-user"></span>
         </a>
     </div>
 </nav>
-
-</body>
-</html>

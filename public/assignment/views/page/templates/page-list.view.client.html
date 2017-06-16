@@ -1,59 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Page List</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <a class="cl-text-white navbar-brand cl-text-bold" href="website-list.html">
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#/user/:uid/website">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
 
-        <a class="cl-text-white navbar-brand cl-text-bold" href="widget-list.html">
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/:uid/website/:wid/page/:pid/widget">
             Pages
         </a>
-        <a href="page-new.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a href="#!/user/:uid/website/:wid/page/new" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-plus"></span>
         </a>
     </div>
 </nav>
 
-<div class="row container-fluid">
+<div ng-repeat="page in model.pages" class="row container-fluid">
+    {{page.name}}
+
     <div class="col-sm-12">
         <ul class="list-group cl-text-blue borderless">
             <li class="list-group-item">
-                <a href="page-edit.html">
+                <a href="#!/user/:uid/website/:wid/page/:pid">
                 <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
                 Blog Post
             </li>
             <li class="list-group-item">
-                <a href="page-edit.html">
+                <a href="#!/user/:uid/website/:wid/page/:pid">
                 <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
                 Blogs
             </li>
             <li class="list-group-item">
-                <a href="page-edit.html">
+                <a href="#!/user/:uid/website/:wid/page/:pid">
                 <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
                 Home
             </li>
             <li class="list-group-item">
-                <a href="page-edit.html">
+                <a href="#!/user/:uid/website/:wid/page/:pid">
                 <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
                 About
             </li>
             <li class="list-group-item">
-                <a href="page-edit.html">
+                <a href="#!/user/:uid/website/:wid/page/:pid">
                 <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
                 Contact Us
@@ -64,18 +54,11 @@
 
 </div>
 
-<!--<a href="#">-->
-    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-<!--</a>-->
-
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fuild">
-        <a href="profile.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a href="#!/user/:uid" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="cl-text-blue glyphicon glyphicon-user"></span>
         </a>
     </div>
 </nav>
-
-</body>
-</html>
