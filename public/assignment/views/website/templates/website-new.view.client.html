@@ -13,7 +13,7 @@
                 </a>
             </div>
             <div class="navbar-text pull-right">
-                <a href="#" class="cl-text-white">
+                <a ng-click="model.createWebsite(model.name, model.description)" class="cl-text-white">
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
@@ -42,35 +42,68 @@
     </div>
 </nav>
 
-
+<!--// ng-repeat of new website that you created-->
+<!--// same as website list-->
 <div class="row container-fluid">
     <div class="col-sm-4 hidden-xs overflow-y">
-        <ul class="list-group cl-text-blue borderless">
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Blogging App
-            </li>
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Address Book App
-            </li>
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Script Testing App
-            </li>
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Blogger
-            </li>
-        </ul>
+
+        <div ng-repeat="website in model.websites" class="container">
+
+
+            <ul class="list-group borderless">
+                <li class="list-group-item">
+                    <a href="#!/user/{{model.uid}}/website/{{model.wid}}">
+                        <span class="glyphicon glyphicon-cog pull-right"></span>
+                    </a>
+                    <a href="#!/user/{{model.uid}}/website/{{website._id}}/page">{{website.name}}</a>
+                </li>
+                <!--<li class="list-group-item">-->
+                <!--<a href="#!/user/:uid/website/:wid">-->
+                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--Blogger-->
+                <!--</a>-->
+
+                <!--</li>-->
+                <!--<li class="list-group-item">-->
+                <!--<a href="#!/user/:uid/website/:wid">-->
+                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--Blogging App-->
+                <!--</a>-->
+                <!--</li>-->
+                <!--<li class="list-group-item">-->
+                <!--<a href="#!/user/:uid/website/:wid">-->
+                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--Script Testing App-->
+                <!--</a>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <!--<ul class="list-group cl-text-blue borderless">-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#">-->
+                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--Blogging App-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#">-->
+                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--Address Book App-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#">-->
+                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--Script Testing App-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#">-->
+                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--Blogger-->
+            <!--</li>-->
+        <!--</ul>-->
 
     </div>
 

@@ -9,8 +9,6 @@
     </div>
 </nav>
 
-<!--// NO PASSWORD NG-MODEL-->
-
 <div class="container">
     <div ng-show="model.updated" class="alert alert-success" role="alert">{{model.updated}}</div>
     <form class="cl-form-bottom-padding">
@@ -28,7 +26,6 @@
                type="text" class="form-control" placeholder="Day" id="lName" required>
     </form>
 
-    <!--"../../website/website-list.view.client.html"-->
     <a href="#!/user/{{model.user._id}}/website" class="btn btn-primary btn-block">Websites</a>
     <a href="#!/login" class="btn btn-danger btn-block">Logout</a>
 </div>

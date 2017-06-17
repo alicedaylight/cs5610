@@ -60,21 +60,11 @@
     function ProfileController($routeParams, $timeout, UserService) {
         var vm = this;
         vm.user = UserService.findUserById($routeParams.uid);
-        // routeParam.uid is from the config /login/uid
-        // take uid out and pass as an aguement UserService's findUser by Id
-        // and pass that user to vm.user
-        // vm.uid = $routeParams.uid;
-        // // take routeParam's url's uid take it out and assign it to uid in vm
-
-        // in profile if want to use uid.. will need to use model
-        // take data from url
-
-        // inside profiel
-        // if we want to use model.uid...
         vm.username = vm.user.username;
         vm.firstName = vm.user.firstName;
         vm.lastName = vm.user.lastName;
         vm.email = vm.user.email;
+        // vm.id = $routeParams["id"];
         vm.updateUser = updateUser;
 
         function updateUser() {

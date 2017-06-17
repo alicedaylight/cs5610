@@ -1,6 +1,3 @@
-/**
- * Created by xoxoumop3pisdn on 6/6/17.
- */
 (function() {
     angular
         .module("WebAppMaker")
@@ -10,9 +7,14 @@
 
     function PageListController($routeParams, PageService) {
         var vm = this;
-        vm.userId = $routeParams["websiteId"];
+        vm.userId = $routeParams["uid"];
+        vm.websiteId = $routeParams["wid"];
+        // console.log('rougeParams', $routeParams);
+
         function init() {
-            vm.pages = PageService.findPageByWebsiteId(websiteId);
+
+            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
+            // console.log('pages', vm.pages)
         }
         init ();
     }
@@ -21,7 +23,10 @@
         var vm = this;
     }
 
-    function EditPageController() {
+    function EditPageController($routeParam, PageService) {
+        var vm = this;
+        vm.userId = $routeParam["uid"];
+        vm.websiteId = $routeParam["wid"];
 
     }
 

@@ -14,40 +14,41 @@
 </nav>
 
 <div ng-repeat="page in model.pages" class="row container-fluid">
-    {{page.name}}
+    <!--{{page.name}}-->
+    <!--hello world-->
 
     <div class="col-sm-12">
         <ul class="list-group cl-text-blue borderless">
             <li class="list-group-item">
-                <a href="#!/user/:uid/website/:wid/page/:pid">
+                <a href="#!/user/{{mode.uid}}/website/{{model.wid}}/page/{{page._id}}">
                 <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
-                Blog Post
+                <a href="#!/user/:uid/website/:wid/page/:pid/widget" >{{page.name}}</a>
             </li>
-            <li class="list-group-item">
-                <a href="#!/user/:uid/website/:wid/page/:pid">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Blogs
-            </li>
-            <li class="list-group-item">
-                <a href="#!/user/:uid/website/:wid/page/:pid">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Home
-            </li>
-            <li class="list-group-item">
-                <a href="#!/user/:uid/website/:wid/page/:pid">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                About
-            </li>
-            <li class="list-group-item">
-                <a href="#!/user/:uid/website/:wid/page/:pid">
-                <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Contact Us
-            </li>
+            <!--<li class="list-group-item">-->
+                <!--<a href="#!/user/:uid/website/:wid/page/:pid">-->
+                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--Blogs-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#!/user/:uid/website/:wid/page/:pid">-->
+                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--Home-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#!/user/:uid/website/:wid/page/:pid">-->
+                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--About-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="#!/user/:uid/website/:wid/page/:pid">-->
+                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
+                <!--</a>-->
+                <!--Contact Us-->
+            <!--</li>-->
         </ul>
 
     </div>

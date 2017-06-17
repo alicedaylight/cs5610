@@ -48,13 +48,23 @@
         }
 
         function findPageByWebsiteId(websiteId) {
-            for (u in pages) {
+            // declare array to store pages
+            var arr = [];
+
+            // console.log('findPageByWebsiteId')
+            for (var u in pages) {
+                // console.log('u:', u)
                 var page = pages[u];
+                // console.log('page', page)
                 if (parseInt(page.websiteId) === parseInt(websiteId)) {
-                    return page;
+                    // return page;
+                    arr.push(page);
                 }
             }
-            return null;
+            return arr;
+            //
+            // console.log('renturn null')
+            // return null;
         }
 
         function findPageById(pageId) {

@@ -88,6 +88,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-8 pull-right">
+        <div ng-show="model.updated" class="alert alert-success" role="alert">{{model.updated}}</div>
         <form>
             <div class="form-group">
                 <label for="exampleInputName">Website Name</label>
@@ -110,6 +111,7 @@
 
 </div>
 
+<!--//#!/user{{model.uid}}-->
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">
     <div class="container-fuild">
         <a href="#!/user/:uid" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">

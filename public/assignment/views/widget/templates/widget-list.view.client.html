@@ -82,7 +82,7 @@
                 <a href="#">
                     <span class="glyphicon glyphicon-align-justify pull-right cl-icon-padding cl-text-black"></span>
                 </a>
-                <a href="#">
+                <a href="#!/user/{{$routeParams.uid}}/website/:wid/page/:pid/widget/:wgid">
                     <span class="glyphicon glyphicon-cog pull-right"></span>
                 </a>
                 <div class="cl-low-padding">
@@ -96,26 +96,6 @@
 
 
 </div>
-
-
-<!--<div ng-repeat="widget in widgets">-->
-    <!--<div ng-switch="widget.widgetType">-->
-        <!--<div ng-switch-when="HEADING">-->
-            <!--<ng-include src="'widget-heading.view.client.html'">-->
-        <!--</div>-->
-        <!--<div ng-switch-when="IMAGE">-->
-            <!--<img ng-src="{{widget.url}}" width="{{widget.width}}"></div>-->
-            <!--<ng-include src="'widget-image.view.client.html'">-->
-        <!--</div>-->
-        <!--<div ng-switch-when="YOUTUBE">-->
-            <!--<ng-include src="'widget-youtube.view.client.html'">-->
-        <!--</div>-->
-        <!--<div ng-switch-when="HTML"-->
-             <!--ng-bind-html="model.trust(widget.text)">-->
-            <!--{{widget.text}}</div>-->
-            <!--<ng-include src="'widget&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;.view.client.html'">-->
-        <!--</div>-->
-    <!--</div>-->
 
 <!--//iframe is a url that lives outside of our source-->
 <!--// it could have scripts etc that wreck havoc on our website-->
@@ -139,8 +119,6 @@
 </div>
 
 
-
-
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fuild">
         <a href="../../user/templates/profile.view.client.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
@@ -160,4 +138,4 @@
 ... logic that depends on some criteria
 .... here, don't interpret this as a variable.. it is literally
 a string of where this lives-->
-<div ng-include="'views/common/footer.view.client.html'"></div>
+<!--<div ng-include="'views/common/footer.view.client.html'"></div>-->
