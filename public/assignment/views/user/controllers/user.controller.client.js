@@ -6,11 +6,11 @@
         .controller("ProfileController", ProfileController);
 
     function LoginController($location, UserService) {
+        // vm is a variable bound to the controller instance that allow controllers and views to exchange data and events
         var vm = this;
-        // vm is a variable bound to the controller instance
-        // allow controllers and views to exchange data and events
+        // declares a variable named "login" on the left hand side of the assignment
+        // assigns the function login (below) to this variable
         vm.login = login;
-        //login in write is same as function login below
 
         function login(username, password) {
             var user = UserService.findUserByCredentials(username, password);
@@ -64,7 +64,6 @@
         vm.firstName = vm.user.firstName;
         vm.lastName = vm.user.lastName;
         vm.email = vm.user.email;
-        // vm.id = $routeParams["id"];
         vm.updateUser = updateUser;
 
         function updateUser() {
@@ -91,73 +90,7 @@
 // and google says if if you use the #! ... server side rendered the old way.. you don't have
 // to render it.. I only want to use it for indexing
 // if you don't want to be indexed in google (you really want to)
-// function LoginController() {
-//     var vm = this;
-//     console.log("login");
-//     // use this to check that every controller is hooked up properly
-//     vm.login = login;
-//
-//     function login(user) {
-//         // vm.username
-//         // vm.password
-//
-//         // if user login successful
-//         // we defined a UserService that tells us about all of the services
-//         user = UserService.findUserByCredentials(user.username, user.password);
-//         if(user) {
-//             $location.url("#!/user/" + user._id);
-//             // else $location("#!/login");
-//         } else {
-//             vm.alert = "Unable to login";
-//         }
-//     }
-// }
 
-
-
-/**
- //  * Created by xoxoumop3pisdn on 6/7/17.
- //  */
-// (function() {
-//     angular
-//         .module("WebAppMaker")
-//         // got rid of the dependency [] b/c we're only retreiving the controller
-//         // that already exists. here we're only adding the controller to framework
-//         .controller("LoginController", LoginController);
-//
-//     function LoginController($location, UserService) {
-//         var vm = this;
-//         vm.login = login;
-//
-//         // vm.aliceEats = aliceEats
-//         function login(user) {
-//             user = UserService.findUserByCredentials(user.username, user.password);
-//             if(user) {
-//                 $location.url("/user/" + user._id);
-//             } else {
-//                 vm.alert = "Unable to login";
-//             }
-//         }
-//
-//         // add more function
-//         // function aliceEats(
-//     }
-//
-// })();
-//
-// // //copied over from app.js based off youtube tutorial by prof
-// // (function() {
-// //     angular
-// //         .module("WebAppMaker", [])
-// //         .controller('loginController', loginController)
-// //
-// //     function loginController($scope) {
-// //         $scope.login = function (username, password) {
-// //             console.log([username, password]);
-// //         }
-// //         // console.log('loginController');
-// //     }
-// // })();
 //
 // //not who the $scope belongs to
 // // who is the $scope bound to

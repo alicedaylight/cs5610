@@ -3,12 +3,12 @@
 
         <div class="col-sm-4 hidden-xs">
             <div class="navbar-text pull-left cl-text-white no-margin-left" >
-                <a href="#!/user/:uid/website" class="cl-text-white">
+                <a href="#!/user/{{model.uid}}/website" class="cl-text-white">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             </div>
             <div class="navbar-header">
-                <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+                <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/{{model.uid}}/website/new">
                     Websites
                 </a>
             </div>
@@ -19,11 +19,13 @@
             </div>
         </div>
 
+        <!--check url-->
         <div class="col-sm-8">
             <div class="navbar-text pull-left cl-text-white no-margin-left">
             </div>
             <div class="navbar-text pull-right thirty-margin-right">
-                <a href="#!/user/:uid/website" class="cl-text-white">
+                <a ng-click="model.createWebsite(model.user.name, model.user.description)" a href="#!/user/{{model.uid}}/website" class="cl-text-white">
+                <!--<a href="#!/user/{{model.uid}}/website" class="cl-text-white">-->
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -33,7 +35,7 @@
                 </a>
             </div>
             <div class="navbar-header">
-                <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+                <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/{{model.uid}}/website/new">
                     New Website
                 </a>
             </div>
@@ -57,59 +59,11 @@
                     </a>
                     <a href="#!/user/{{model.uid}}/website/{{website._id}}/page">{{website.name}}</a>
                 </li>
-                <!--<li class="list-group-item">-->
-                <!--<a href="#!/user/:uid/website/:wid">-->
-                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--Blogger-->
-                <!--</a>-->
 
-                <!--</li>-->
-                <!--<li class="list-group-item">-->
-                <!--<a href="#!/user/:uid/website/:wid">-->
-                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--Blogging App-->
-                <!--</a>-->
-                <!--</li>-->
-                <!--<li class="list-group-item">-->
-                <!--<a href="#!/user/:uid/website/:wid">-->
-                <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--Script Testing App-->
-                <!--</a>-->
-                <!--</li>-->
             </ul>
         </div>
-        <!--<ul class="list-group cl-text-blue borderless">-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#">-->
-                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--</a>-->
-                <!--Blogging App-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#">-->
-                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--</a>-->
-                <!--Address Book App-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#">-->
-                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--</a>-->
-                <!--Script Testing App-->
-            <!--</li>-->
-            <!--<li class="list-group-item">-->
-                <!--<a href="#">-->
-                    <!--<span class="glyphicon glyphicon-cog pull-right"></span>-->
-                <!--</a>-->
-                <!--Blogger-->
-            <!--</li>-->
-        <!--</ul>-->
 
     </div>
-
-    <!--// NO USERNAME AND PASSWORD -->
-    <!--// ONLY NAME AND DESCRIPTION-->
-    <!--// NO-NG-MODEL-->
 
     <div class="col-xs-12 col-sm-8 pull-right">
         <form>
@@ -133,7 +87,7 @@
 
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">
     <div class="container-fuild">
-        <a href="#!/user/:uid" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a href="#!/user/{{model.uid}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-user"></span>
         </a>
     </div>

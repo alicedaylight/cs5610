@@ -1,5 +1,7 @@
 <div class="container">
     <h1>Register</h1>
+    <!--Inside of register controller, the register controller displays alerts if incorrect combination of information
+     is entered. Here we make room by having a ng-repeat "model.error"-->
     <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
     <input type="text"
            class="form-control cl-form-control-margin"

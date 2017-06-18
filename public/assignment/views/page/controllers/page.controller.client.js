@@ -7,26 +7,26 @@
 
     function PageListController($routeParams, PageService) {
         var vm = this;
-        vm.userId = $routeParams["uid"];
-        vm.websiteId = $routeParams["wid"];
-        // console.log('rougeParams', $routeParams);
-
-        function init() {
-
-            vm.pages = PageService.findPageByWebsiteId(vm.websiteId);
-            // console.log('pages', vm.pages)
-        }
-        init ();
+        vm.uid = $routeParams.uid;
+        vm.wid = $routeParams.wid;
+        vm.pid = $routeParams.pid;
+        // vm.pages = PageService.findPageById(vm.pid);
+        vm.pages = PageService.findPageByWebsiteId(vm.wid);
+        // vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
     }
 
-    function NewPageController() {
+    function NewPageController($routeParams, PageService) {
         var vm = this;
+        vm.uid = $routeParams.uid;
+        vm.wid = $routeParams.wid;
+        vm.pid = $routeParams.pid;
     }
 
-    function EditPageController($routeParam, PageService) {
+    function EditPageController($routeParams, PageService) {
         var vm = this;
-        vm.userId = $routeParam["uid"];
-        vm.websiteId = $routeParam["wid"];
+        vm.uid = $routeParams.uid;
+        vm.wid = $routeParams.wid;
+        vm.pid = $routeParams.pid;
 
     }
 

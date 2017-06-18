@@ -1,10 +1,10 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-        <a class="cl-text-white navbar-brand cl-text-bold" href="/user/{{model.uid}}/website/{{model.wid}}/page">
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/{{model.uid}}/website/{{model.wid}}/page">
             <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
 
-        <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}">
             Edit Page
         </a>
         <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
@@ -12,6 +12,7 @@
         </a>
     </div>
 </nav>
+
 
 <div class="container">
     <form class="cl-form-bottom-padding">
@@ -21,7 +22,7 @@
         <label for="title">Title</label>
         <input ng-model="model.user.title"
                 type="text" class="form-control" placeholder="Page Title" id="title" required>
-        <a href="#!/user/:uid/website/:wid/page" class="btn btn-danger btn-block">Delete</a>
+        <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page" class="btn btn-danger btn-block">Delete</a>
 
     </form>
 
@@ -29,7 +30,7 @@
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container-fuild">
-        <a href="#!/user/:uid" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a href="#!/user/{{model.uid}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="cl-text-blue glyphicon glyphicon-user"></span>
         </a>
 
