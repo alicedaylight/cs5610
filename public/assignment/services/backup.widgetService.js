@@ -1,3 +1,6 @@
+/**
+ * Created by xoxoumop3pisdn on 6/18/17.
+ */
 (function() {
     angular
         .module("WebAppMaker")
@@ -92,36 +95,18 @@
 
         function createWidget(pageId, widget) {
             var newWidgetId = getNextId();
-            var newWidget = createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
+            var newWidget = {
+                _id: newWidgetId,
+                widgetType: pageId.widgetType,
+                pageId: pageId.pageId,
+                size: widget.size,
+                text: widget.text,
+                url: widget.url
+            };
+
             widgets.push(newWidget);
+            // what is this line doing?
         }
-
-        // function createWidget(pageId, widget) {
-        //     var newWidgetId = getNextId();
-        //     var newWidget = {
-        //         _id: newWidgetId,
-        //         widgetType: pageId.widgetType,
-        //         pageId: pageId.pageId,
-        //         size: widget.size,
-        //         text: widget.text,
-        //         url: widget.url
-        //     };
-        //
-        //     widgets.push(newWidget);
-        //     // what is this line doing?
-        // }
-
-
-        // THIS CODE IS INCORRECT AND MAKES LETTERS APPEAR ON LEFT SIDE
-        // function findWidgetsByPageId(pageId) {
-        //     results = [];
-        //     function filterByPageId(widget) {
-        //         return widget.pageId === pageId;
-        //     }
-        //
-        //     results = widgets.filter(filterByPageId);
-        //     return results;
-        // }
 
         function findWidgetsByPageId(pageId) {
             for (w in widgets) {
@@ -133,12 +118,10 @@
             return null;
         }
 
-        // previous function is checking against _id
-        // this function is also checking against the same _id
         function findWidgetById(widgetId) {
-            for (var w in widgets) {
-                var widget = widgets[w];
-                if (parseInt(widget._id) === parseInt(widgetId)) {
+            for (wid in widgets) {
+                var widget = widgets[wid];
+                if (widget._id === widgetId) {
                     return widget;
                 }
             }

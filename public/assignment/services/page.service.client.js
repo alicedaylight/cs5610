@@ -85,6 +85,7 @@
             pages[index].websiteId = page.websiteId;
             pages[index].description = page.description;
         }
+
         function deletePage(pageId) {
             var oldPage = findPageById(pageId);
             var index = pages.indexOf(oldPage);
