@@ -112,15 +112,30 @@
         // }
 
 
-        // THIS CODE IS INCORRECT AND MAKES LETTERS APPEAR ON LEFT SIDE
+        // // THIS CODE IS INCORRECT AND MAKES LETTERS APPEAR ON LEFT SIDE
         // function findWidgetsByPageId(pageId) {
-        //     results = [];
+        //     var results = [];
         //     function filterByPageId(widget) {
         //         return widget.pageId === pageId;
         //     }
         //
         //     results = widgets.filter(filterByPageId);
         //     return results;
+        // }
+
+        // // testing if this function works
+        // function findWidgetsByPageId(pageId) {
+        //     var arr = [];
+        //     for (var u in widgets) {
+        //         // console.log('u:', u)
+        //         var widget = widgets[u];
+        //         // console.log('page', page)
+        //         if (parseInt(widget.pageId) === parseInt(pageId)) {
+        //             arr.push(widget);
+        //         }
+        //     }
+        //     return arr;
+        //
         // }
 
         function findWidgetsByPageId(pageId) {

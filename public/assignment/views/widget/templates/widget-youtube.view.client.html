@@ -1,41 +1,44 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <a class="cl-text-white navbar-brand cl-text-bold" href="widget-list.view.client.html">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
+<iframe class="embed-responsive-item"
+        src="{{model.getYouTubeEmbedUrl(widget.url)}}"></iframe>
 
-        <a class="cl-text-white navbar-brand cl-text-bold" href="#">
-            Widget Edit
-        </a>
-        <a href="#!/user/:uid/website/:wid/page/:pid/widget" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-            <span class="glyphicon glyphicon-ok"></span>
-        </a>
-    </div>
-</nav>
+<!--<nav class="navbar navbar-default navbar-fixed-top">-->
+    <!--<div class="container-fluid">-->
+        <!--<a class="cl-text-white navbar-brand cl-text-bold" href="widget-list.view.client.html">-->
+            <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
+        <!--</a>-->
 
-<div class="container">
-    <form class="cl-form-bottom-padding">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" required>
-        <label for="text">Text</label>
-        <input type="text" class="form-control" id="text" required>
-        <label for="url">URL</label>
-        <input type="url" class="form-control" placeholder="https://youtu.be/uLWLashCXHE" id="url" required>
-        <label for="width">Width</label>
-        <input type="text" class="form-control" id="width" required>
+        <!--<a class="cl-text-white navbar-brand cl-text-bold" href="#">-->
+            <!--Widget Edit-->
+        <!--</a>-->
+        <!--<a href="#!/user/:uid/website/:wid/page/:pid/widget" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">-->
+            <!--<span class="glyphicon glyphicon-ok"></span>-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</nav>-->
 
-    </form>
+<!--<div class="container">-->
+    <!--<form class="cl-form-bottom-padding">-->
+        <!--<label for="name">Name</label>-->
+        <!--<input type="text" class="form-control" id="name" required>-->
+        <!--<label for="text">Text</label>-->
+        <!--<input type="text" class="form-control" id="text" required>-->
+        <!--<label for="url">URL</label>-->
+        <!--<input type="url" class="form-control" placeholder="https://youtu.be/uLWLashCXHE" id="url" required>-->
+        <!--<label for="width">Width</label>-->
+        <!--<input type="text" class="form-control" id="width" required>-->
 
-    <a href="#!/user/:uid/website/:wid/page/:pid/widget" class="btn btn-danger btn-block">Delete</a>
-</div>
+    <!--</form>-->
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fuild">
-        <a href="#" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-            <span class="cl-text-blue glyphicon glyphicon-user"></span>
-        </a>
-    </div>
-</nav>
+    <!--<a href="#!/user/:uid/website/:wid/page/:pid/widget" class="btn btn-danger btn-block">Delete</a>-->
+<!--</div>-->
 
-<!--Need iframe
-these snippets should be from widget-list-->
+<!--<nav class="navbar navbar-default navbar-fixed-bottom">-->
+    <!--<div class="container-fuild">-->
+        <!--<a href="#" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">-->
+            <!--<span class="cl-text-blue glyphicon glyphicon-user"></span>-->
+        <!--</a>-->
+    <!--</div>-->
+<!--</nav>-->
+
+<!--&lt;!&ndash;Need iframe-->
+<!--these snippets should be from widget-list&ndash;&gt;-->

@@ -13,6 +13,7 @@
             {_id: "789", name: "Chess", developerId: "234", desc: "Test06"}
         ];
 
+        // API here and implementing the function below
         var services = {
             'createWebsite': createWebsite,
             'findWebsitesByUser': findWebsitesByUser,
@@ -49,7 +50,7 @@
 
         function findWebsitesByUser(userId) {
             result = [];
-            for (w in websites) {
+            for (var w in websites) {
                 var website = websites[w];
                 if (parseInt(website.developerId) === parseInt(userId)) {
                     result.push(website);
@@ -58,15 +59,23 @@
             return result;
         }
 
+        // finds the website by ID
         function findWebsiteById(websiteId) {
-            for (w in websites) {
-                var website = websites[w];
-                if (parseInt(website._id) === parseInt(websiteId)) {
-                    return website;
-                }
-            }
-            return null;
+            // find the website that matches the websiteID
+            return websites.find(function (website) {
+                return website._id === websiteId;
+            });
         }
+
+        // function findWebsiteById(websiteId) {
+        //     for (var w in websites) {
+        //         var website = websites[w];
+        //         if (parseInt(website._id) === parseInt(websiteId)) {
+        //             return website;
+        //         }
+        //     }
+        //     return null;
+        // }
 
         function updateWebsite(websiteId, website) {
             var oldWebsite = findWebsiteById(websiteId);

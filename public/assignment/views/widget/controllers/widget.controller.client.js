@@ -18,14 +18,20 @@
         //     vm.widgets = WidgetService.findWidgetById(vm.uid);
     }
 
+
+    // something might be wrong with this controller
     function NewWidgetController($routeParams, $timeout, WidgetService) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
+        vm.wgid = $routeParams.wgid;
         vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-        vm.futureFeature = futureFeature;
-        vm.featureMissingAlert = null;
+
+        // console.log("does this work");
+
+        // vm.futureFeature = futureFeature;
+        // vm.featureMissingAlert = null;
     }
 
     function CreateWidgetController($routeParams, $location, WidgetService) {
@@ -88,6 +94,10 @@
             vm.widgetText = vm.widget.text;
             vm.widgetUrl = vm.widget.url;
             vm.widgetWidth = vm.widget.width;
+        } else if (vm.widget.widgetType === "HTML") {
+            vm.widgetName = vm.widget.name;
+            vm.widgetText = vm.widget.text;
+            vm.widgetUrl = vm.widget.url;
         }
 
         function editWidget() {

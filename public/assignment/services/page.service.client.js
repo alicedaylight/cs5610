@@ -39,12 +39,11 @@
             var newPage = {
                 _id: newPageId,
                 name: page.name,
-                websiteId: page.websiteId,
+                // websiteId: page.websiteId,
+                websiteId: websiteId,
                 description: page.description
             };
             pages.push(newPage);
-            // what to do with websiteId
-
         }
 
         function findPageByWebsiteId(websiteId) {
@@ -62,9 +61,7 @@
                 }
             }
             return arr;
-            //
-            // console.log('renturn null')
-            // return null;
+
         }
 
         function findPageById(pageId) {

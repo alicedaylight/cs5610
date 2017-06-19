@@ -28,11 +28,10 @@
             var website = {
                 name: name,
                 desc: description
-            }
+            };
             WebsiteService.createWebsite(vm.uid, website);
             $location.url("/user/" + vm.uid + "/website");
         }
-
 
     }
 
@@ -42,19 +41,49 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
 
-        //vm.wid = $routeProvider.websiteId;
+        //event handler that listens for an incoming click
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
 
-        console.log("EditWebsiteController");
+        // displays all of the websites on the lefthand side of the page (same as website-list)
+        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+
+        // retrieve that one website now that we know it's ID
+        vm.website = WebsiteService.findWebsiteById(vm.wid);
+
 
         function updateWebsite(website) {
             WebsiteService.updateWebsite(vm.wid, website);
         }
 
-        function deleteWebsite() {
-            WebsiteService.deleteWebsite(vm.wid);
+        function deleteWebsite(websiteId) {
+            WebsiteService.deleteWebsite(websiteId);
+            // once complete, navigate back to the list of websites
+            $locaion.url("/user/" +vm.uid+"/website");
         }
     }
 
+
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
