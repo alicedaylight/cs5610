@@ -7,20 +7,27 @@
         <a class="cl-text-white navbar-brand cl-text-bold">
             New Page
         </a>
-        <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+        <a ng-click="model.createPage(model.page.name, model.page.description)" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
             <span class="glyphicon glyphicon-ok"></span>
         </a>
     </div>
 </nav>
 
+<!--<div class="form-group">-->
+    <!--<label for="exampleInputName">Website Name</label>-->
+    <!--<input ng-model="model.website.name"-->
+           <!--class="form-control" id="exampleInputName">-->
+
+<!--</div>-->
+
 <div class="container">
     <form class="cl-form-bottom-padding">
         <label for="name">Name</label>
-        <input ng-model="model.user.name"
-               type="text" class="form-control" placeholder="Page Name" id="name" required>
-        <label for="title">Title</label>
-        <input ng-model="model.user.title"
-               type="text" class="form-control" placeholder="Page Title" id="title" required>
+        <input ng-model="model.page.name"
+               class="form-control"  id="name" required>
+        <label for="title">Description</label>
+        <input ng-model="model.page.description"
+               class="form-control" id="title" required>
 
     </form>
 

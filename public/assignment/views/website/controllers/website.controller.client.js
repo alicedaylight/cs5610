@@ -35,7 +35,7 @@
 
     }
 
-    function EditWebsiteController($routeParams, WebsiteService) {
+    function EditWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -50,16 +50,20 @@
 
         // retrieve that one website now that we know it's ID
         vm.website = WebsiteService.findWebsiteById(vm.wid);
+        console.log(vm.wid);
+        console.log(vm.website);
 
 
         function updateWebsite(website) {
             WebsiteService.updateWebsite(vm.wid, website);
+
         }
 
         function deleteWebsite(websiteId) {
             WebsiteService.deleteWebsite(websiteId);
             // once complete, navigate back to the list of websites
-            $locaion.url("/user/" +vm.uid+"/website");
+            $location.url("/user/" +vm.uid+"/website");
+            //#!/user/123/website
         }
     }
 
