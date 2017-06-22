@@ -12,110 +12,36 @@
     </div>
 </nav>
 
-<div ng-repeat="widget in model.widgets" class="row container-fluid">
-    {{widget.name}}
 
-    <div class="col-sm-12 overflow-y">
-        <ul class="list-group borderless">
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-align-justify pull-right cl-icon-padding cl-text-black"></span>
-                </a>
-                <a href="widget-heading.view.client.html">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                <div class="cl-widget-header">
-                    ALICE DAY
-                </div>
-
-            </li>
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-align-justify pull-right cl-icon-padding cl-text-black"></span>
-                </a>
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                <div class="cl-subHeading">
-                Read more to learn about Alice Day
-                </div>
-            </li>
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-align-justify pull-right cl-icon-padding cl-text-black"></span>
-                </a>
-                <a href="widget-image.view.client.html">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                <img src="http://www.snopes.com/media/graphics/alicewonderland.jpg" class="img-responsive" alt="Responsive image">
-
-            </li>
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-align-justify pull-right cl-icon-padding cl-text-black"></span>
-                </a>
-                <a href="#">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                Alice Day received her undergrad in Journalism and Political Science
-                from the Universiy of Washington. She is currently persuing a masters
-                degree in Computer Science from Northeastern University in Seattle.
-                In her spare time she likes to watch Youtube videos and sleep.
-            </li>
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-align-justify pull-right cl-icon-padding cl-text-black"></span>
-                </a>
-                <a href="widget-youtube.view.client.html">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                <div class="cl-subHeading">
-                Hello Hello Expo Top Song of 2015
-                </div>
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="http://www.youtube.com/embed/?listType=user_uploads&list=YOURCHANNELNAME"></iframe>
-                </div>
-
-            </li>
-
-            <li class="list-group-item">
-                <a href="#">
-                    <span class="glyphicon glyphicon-align-justify pull-right cl-icon-padding cl-text-black"></span>
-                </a>
-                <a href="#!/user/{{$routeParams.uid}}/website/:wid/page/:pid/widget/:wgid">
-                    <span class="glyphicon glyphicon-cog pull-right"></span>
-                </a>
-                <div class="cl-low-padding">
-                    To learn more about Alice's favorite music. You can follow her on her social media's @alicedaylight.
-                </div>
-            </li>
-
-        </ul>
-
+<div class="container-fluid">
+<div ng-repeate="widget in model.widgets" class="wd-widget">
+    <div class="wd-widget-toolbar">
+        <a href="widget-heading-edit.html">
+            <span class="glyphicon glyphicon-cog"></span>
+        </a>
+        <span class="glypihcon glyphicon-align-justify"></span>
     </div>
-
-
+    <p>{{widget}}</p>
 </div>
-
-<!--//iframe is a url that lives outside of our source-->
-<!--// it could have scripts etc that wreck havoc on our website-->
-<div ng-repate="widget in widgets">
+    <!--<div ng-include="model.widgetUrl(widget)"></div>-->
     <div ng-switch="widget.widgetType">
         <div ng-switch-when="HEADING">
             <div ng-include="'views/widget/templates/widget-heading.view.client.html'"></div>
         </div>
+
         <div ng-switch-when="IMAGE">
-            <img ng-src="{{widget.url}}" width="widget.width">
+            <div ng-include="'views/widget/templates/widget-image.view.client.html'"></div>
         </div>
+
         <div ng-switch-when="HTML"
              ng-bind-html="model.trust(widget.text)">
-            {{widget.text}}</div>
-        <div ng-switch-when="YOUTUBE">
-            <iframe class="embed-responsive-item"
-                    src="{{model.getYouTubeEmbedUrl(widget.url)}}"></iframe>
+        </div>
 
-            YOUTUBE widget {{widget.url}}</div>
+        <div ng-switch-when="YOUTUBE">
+            <div ng-include="'views/widget/templates/widget-youtube.view.client.html'"></div>
+        </div>
     </div>
+
 </div>
 
 
@@ -132,10 +58,3 @@
         </a>
     </div>
 </nav>
-
-<!--need to put quotes around it because-->
-<!--the path can be a variable can to rendered at runtime
-... logic that depends on some criteria
-.... here, don't interpret this as a variable.. it is literally
-a string of where this lives-->
-<!--<div ng-include="'views/common/footer.view.client.html'"></div>-->

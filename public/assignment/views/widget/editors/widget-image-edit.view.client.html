@@ -1,3 +1,18 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{model.wgid}}">
+            Widget Edit
+        </a>
+        <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+    </div>
+</nav>
+
 <div class="container">
     <form class="cl-form-bottom-padding">
         <label for="name">Name</label>
@@ -12,6 +27,14 @@
         <input type="file" class="form-control" id="upload" class="form-control">
     </form>
 
-    <a href="test.html" class="btn btn-primary btn-block">Upload Image</a>
-    <a href="#!/user/:uid/website/:wid/page/:pid/widget" class="btn btn-danger btn-block">Delete</a>
+    <a href="#" class="btn btn-primary btn-block">Upload Image</a>
+    <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="btn btn-danger btn-block">Delete</a>
 </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fuild">
+        <a href="#!/user/{{model.uid}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+            <span class="cl-text-blue glyphicon glyphicon-user"></span>
+        </a>
+    </div>
+</nav>

@@ -14,15 +14,19 @@
 </nav>
 
 
+<!--pages[index].name = page.name;-->
+<!--pages[index].websiteId = page.websiteId;-->
+<!--pages[index].description = page.description;-->
+
 <div class="container">
     <form class="cl-form-bottom-padding">
         <label for="name">Name</label>
-        <input ng-model="model.user.name"
+        <input ng-model="model.page.name"
                type="text" class="form-control" placeholder="Blog Post" id="name" required>
         <label for="title">Title</label>
-        <input ng-model="model.user.title"
+        <input ng-model="model.page.description"
                 type="text" class="form-control" placeholder="Page Title" id="title" required>
-        <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page" class="btn btn-danger btn-block">Delete</a>
+        <a ng-click="model.deletePage(model.page._id)" class="btn btn-danger btn-block">Delete</a>
 
     </form>
 

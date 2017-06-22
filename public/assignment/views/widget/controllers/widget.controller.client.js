@@ -9,13 +9,35 @@
         .controller("CreateWidgetController", CreateWidgetController)
         .controller("EditWidgetController", EditWidgetController);
 
-    function WidgetListController($routeParams, WidgetService) {
+    function WidgetListController($routeParams, WidgetService, $sce) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
+
+        vm.trust = trust;
+        vm.getYoutubeEmbedUrl = getYoutubeEmbedUrl;
+        // vm.widgetUrl = widgetUrl;
+        //
+        // function widgetUrl(widget) {
+        //     var url = 'views/widget/templates/widget-' +widget.widgetType.toLowerCase()+ '.view.client.html';
+        //     return url;
+        // }
+
         vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
         //     vm.widgets = WidgetService.findWidgetById(vm.uid);
+
+        function trust(html) {
+            return $sce.trustAsHtml(html);
+        }
+
+        function getYoutubeEmbedUrl(linkUrl) {
+            var embedUrl = "https://www.youtube.com/embed/";
+            var linkUrlParts = linkUrl.split('/');
+            embedUrl += linkUrlParts[linkUrlPars.length - 1];
+            return $sce.trustAsResourceUrl(embedUrl);
+        }
+
     }
 
 

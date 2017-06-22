@@ -35,7 +35,9 @@
     }
 
 
-    function EditPageController($routeParams, PageService) {
+    function EditPageController($routeParams, PageService, $location) {
+        console.log("inside edit page controller");
+
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -44,18 +46,17 @@
         vm.updatePage = updatePage;
         vm.deletePage = deletePage;
 
-        // vm.pages = PageService.findPageByU
         vm.page = PageService.findPageById(vm.pid);
 
         function updatePage(page) {
             PageService.updatePage(vm.pid, page);
         }
 
-        function deletePage(page) {
-            PageService.deletePage(page, vm.pid);
-            $location.url("/user/" + vm.uid + "/website" + vm.wid + "/page" + vm.pid);
+        function deletePage(pageId) {
+            PageService.deletePage(pageId);
+            console.log("here");
+            $location.url("/user/" +vm.uid+ "/website" + vm.wid + "/page");
         }
-
     }
 
 

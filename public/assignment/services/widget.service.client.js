@@ -8,11 +8,13 @@
             {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, name: "GIZZY", text: "GIZMODO"},
             {_id: "234", widgetType: "HEADER", pageId: "100", size: 4, name: "Ippsy", text: "Lorem ipsum"},
             {_id: "345", widgetType: "IMAGE", pageId: "321", name: "Lorem Pixel", text: "Pixel", width: "100%", url: "http://lorempixel.com/400/200/"},
-            {_id: "456", widgetType: "HTML", pageId: "321", name: "Ipsy", text: "<p>Lorem ipsum</p>"},
+            {_id: "456", widgetType: "HTML", pageId: "321", name: "Ipsy", text: "'<p>Facebook is decidedly an enemy of the open web, and sharing without consideration is a large part of what made the platform a well-oiled misinformation machine. The initiative to focus on community will take the form of Facebook Groups, according to Zuckerberg, a feature which is already seven years old. According to CNN, a billion people currently use Groups. Zuckerberg believes the company has “a good shot within five years or so to get to this goal of connecting a billion people to meaningful communities.” </p>'"},
             {_id: "567", widgetType: "HEADER", pageId: "321", size: 4, name: "Lorrro", text: "Lorem ipsum"},
             {_id: "678", widgetType: "YOUTUBE", pageId: "321", name: "Dire Straits", text: "Sultans of Swing", width: "100%", url: "https://www.youtube.com/embed/8Pa9x9fZBtY"},
             {_id: "789", widgetType: "HTML", pageId: "100", name: "Lorem", text: "<p>Lorem ipsum</p>"}
         ];
+
+
         var services = {
             'createWidget': createWidget,
             'findWidgetsByPageId': findWidgetsByPageId,
@@ -96,47 +98,6 @@
             widgets.push(newWidget);
         }
 
-        // function createWidget(pageId, widget) {
-        //     var newWidgetId = getNextId();
-        //     var newWidget = {
-        //         _id: newWidgetId,
-        //         widgetType: pageId.widgetType,
-        //         pageId: pageId.pageId,
-        //         size: widget.size,
-        //         text: widget.text,
-        //         url: widget.url
-        //     };
-        //
-        //     widgets.push(newWidget);
-        //     // what is this line doing?
-        // }
-
-
-        // // THIS CODE IS INCORRECT AND MAKES LETTERS APPEAR ON LEFT SIDE
-        // function findWidgetsByPageId(pageId) {
-        //     var results = [];
-        //     function filterByPageId(widget) {
-        //         return widget.pageId === pageId;
-        //     }
-        //
-        //     results = widgets.filter(filterByPageId);
-        //     return results;
-        // }
-
-        // // testing if this function works
-        // function findWidgetsByPageId(pageId) {
-        //     var arr = [];
-        //     for (var u in widgets) {
-        //         // console.log('u:', u)
-        //         var widget = widgets[u];
-        //         // console.log('page', page)
-        //         if (parseInt(widget.pageId) === parseInt(pageId)) {
-        //             arr.push(widget);
-        //         }
-        //     }
-        //     return arr;
-        //
-        // }
 
         function findWidgetsByPageId(pageId) {
             for (w in widgets) {
@@ -159,17 +120,6 @@
             }
             return null;
         }
-
-        // // now all widgets have a size, text, and url field...
-        // // how will this generalization work?
-        // function updateWidget(widgetId, widget) {
-        //     var oldWidget = findWidgetById(widgetId);
-        //     var index = widgets.indexOf(oldWidget);
-        //     widgets[index].widgetType = widget.widgetType;
-        //     widgets[index].size = widget.size;
-        //     widgets[index].text = widget.text;
-        //     widgets[index].url = widget.url;
-        // }
 
         function updateWidget(widgetId, widget) {
             var oldWidget = findWidgetById(widgetId);
@@ -211,6 +161,7 @@
                 }
             }
         }
+
 
     }
 })();

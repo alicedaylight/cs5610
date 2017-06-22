@@ -67,16 +67,6 @@
             });
         }
 
-        // function findWebsiteById(websiteId) {
-        //     for (var w in websites) {
-        //         var website = websites[w];
-        //         if (parseInt(website._id) === parseInt(websiteId)) {
-        //             return website;
-        //         }
-        //     }
-        //     return null;
-        // }
-
         function updateWebsite(websiteId, website) {
             var oldWebsite = findWebsiteById(websiteId);
             var index = websites.indexOf(oldWebsite);

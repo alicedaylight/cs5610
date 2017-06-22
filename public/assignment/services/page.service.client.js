@@ -10,7 +10,6 @@
                 {_id: "543", name: "Post 3", websiteId: "456", description: "Lorem" }
             ];
 
-
         var services = {
             "createPage"   : createPage,
             "findPageByWebsiteId" : findPageByWebsiteId,
@@ -74,19 +73,31 @@
             return null;
         }
 
+        //
+        // function updateWebsite(websiteId, website) {
+        //     var oldWebsite = findWebsiteById(websiteId);
+        //     var index = websites.indexOf(oldWebsite);
+        //     websites[index].name = website.name;
+        //     websites[index].desc = website.desc;
+        // }
+
+
+
         // should this call findPageById or findPageByWebsiteId
         function updatePage(pageId, page) {
             var oldPage = findPageById(pageId);
             var index = pages.indexOf(oldPage);
+
             pages[index].name = page.name;
-            pages[index].websiteId = page.websiteId;
+            // pages[index].websiteId = page.websiteId;
             pages[index].description = page.description;
         }
+
 
         function deletePage(pageId) {
             var oldPage = findPageById(pageId);
             var index = pages.indexOf(oldPage);
-            pages.splice(index);
+            pages.splice(index, 1);
         }
     }
 })();
