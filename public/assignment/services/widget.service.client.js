@@ -25,11 +25,19 @@
         };
 
         var createWidgetMap = {
-            'HEADER': createHeaderWidget,
+            'HEADING': createHeaderWidget,
             'IMAGE': createImageWidget,
             'YOUTUBE': createYouTubeWidget,
             'HTML': createHTMLWidget
+
         };
+
+        // var createWidgetMap = {
+        //     'HEADER': createHeaderWidget,
+        //     'IMAGE': createImageWidget,
+        //     'YOUTUBE': createYouTubeWidget,
+        //     'HTML': createHTMLWidget
+        // };
 
         return services;
 
@@ -84,7 +92,7 @@
         function createHeaderWidget(widgetId, pageId, widget) {
             return {
                 _id: widgetId,
-                widgetType: 'HEADER',
+                widgetType: 'HEADING',
                 pageId: pageId,
                 size: widget.size,
                 name: widget.name,

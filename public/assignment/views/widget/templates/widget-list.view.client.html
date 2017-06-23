@@ -12,35 +12,37 @@
     </div>
 </nav>
 
+<!--<div class="container-fluid">-->
+<!--<div ng-repeat="widget in model.widgets"-->
+     <!--ng-switch="widget.widgetType" class="container-fluid padded-widget-list">-->
+    <!--<div ng-switch-when="HEADING">-->
+        <!--<ng-include src="'/views/widget/templates/widget-heading.view.client.html'"></ng-include>-->
+    <!--</div>-->
+    <!--<div ng-switch-when="IMAGE">-->
+        <!--<ng-include src="'/views/widget/templates/widget-image.view.client.html'"></ng-include>-->
+    <!--</div>-->
+    <!--<div ng-switch-when="YOUTUBE">-->
+        <!--<ng-include src="'/views/widget/templates/widget-youtube.view.client.html'"></ng-include>-->
+    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
 
+
+<!--works sortof-->
 <div class="container-fluid">
-<div ng-repeate="widget in model.widgets" class="wd-widget">
+<div ng-repeat="widget in model.widgets"
+     class="wd-widget">
     <div class="wd-widget-toolbar">
-        <a href="widget-heading-edit.html">
-            <span class="glyphicon glyphicon-cog"></span>
+        <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/{{model.wgid}}/">
+            <span class="glyphicon glyphicon-cog pull-right"></span>
         </a>
-        <span class="glypihcon glyphicon-align-justify"></span>
+        <span class="glypihcon glyphicon-align-justify pull-right"></span>
     </div>
-    <p>{{widget}}</p>
+    <p ng-bind="widget">
+
+    </p>
 </div>
-    <!--<div ng-include="model.widgetUrl(widget)"></div>-->
-    <div ng-switch="widget.widgetType">
-        <div ng-switch-when="HEADING">
-            <div ng-include="'views/widget/templates/widget-heading.view.client.html'"></div>
-        </div>
 
-        <div ng-switch-when="IMAGE">
-            <div ng-include="'views/widget/templates/widget-image.view.client.html'"></div>
-        </div>
-
-        <div ng-switch-when="HTML"
-             ng-bind-html="model.trust(widget.text)">
-        </div>
-
-        <div ng-switch-when="YOUTUBE">
-            <div ng-include="'views/widget/templates/widget-youtube.view.client.html'"></div>
-        </div>
-    </div>
 
 </div>
 
@@ -58,3 +60,5 @@
         </a>
     </div>
 </nav>
+
+

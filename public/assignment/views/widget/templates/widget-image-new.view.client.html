@@ -1,0 +1,73 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+
+        <a class="cl-text-white navbar-brand cl-text-bold" href="#">
+            New Image Widget
+        </a>
+        <a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+            <span class="glyphicon glyphicon-ok"></span>
+        </a>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <form>
+        <div class="form-group">
+            <label for="widget-image-name">Name</label>
+            <input ng-model="model.widgetName" type="text" class="form-control" id="widget-image-name"
+                   placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label for="widget-image-text">Text</label>
+            <input ng-model="model.widgetText" type="text" class="form-control" id="widget-image-text"
+                   placeholder="Text">
+        </div>
+        <div class="form-group">
+            <label for="widget-image-url">URL</label>
+            <input ng-model="model.widgetUrl" type="text" class="form-control" id="widget-image-url"
+                   placeholder="http://www.google.com/image">
+        </div>
+        <div class="form-group">
+            <label for="widget-image-width">Width</label>
+            <input ng-model="model.widgetWidth" type="text" class="form-control" id="widget-image-width"
+                   placeholder="100%">
+        </div>
+        <div class="form-group">
+            <label for="widget-image-file-chooser">Upload</label>
+            <input type="file" id="widget-image-file-chooser">
+            <p class="help-block">Upload the image</p>
+        </div>
+        <a id="widget-image-upload-btn" class="btn btn-primary btn-block">Upload Image</a>
+        <a ng-click="model.createWidget()" class="btn btn-primary btn-block" id="widget-heading-create-btn">Create</a>
+    </form>
+    <div ng-show="model.createError" class="alert alert-danger padded-alert" role="alert">{{model.createError}}</div>
+</div>
+
+<!--<div class="container">-->
+    <!--<form class="cl-form-bottom-padding">-->
+        <!--<label for="name">Name</label>-->
+        <!--<input type="text" class="form-control" id="name" required>-->
+        <!--<label for="text">Text</label>-->
+        <!--<input type="text" class="form-control" id="text" required>-->
+        <!--<label for="url">URL</label>-->
+        <!--<input type="url" class="form-control" placeholder="https://www.google.com/image" id="url" required>-->
+        <!--<label for="width">Width</label>-->
+        <!--<input type="text" class="form-control" placeholder="100%" id="width" required>-->
+        <!--<label for="upload">Upload</label>-->
+        <!--<input type="file" class="form-control" id="upload" class="form-control">-->
+    <!--</form>-->
+
+    <!--<a href="#" class="btn btn-primary btn-block">Upload Image</a>-->
+    <!--<a href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" class="btn btn-danger btn-block">Delete</a>-->
+<!--</div>-->
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fuild">
+        <a href="#/user/{{model.uid}}" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
+            <span class="cl-text-blue glyphicon glyphicon-user"></span>
+        </a>
+    </div>
+</nav>

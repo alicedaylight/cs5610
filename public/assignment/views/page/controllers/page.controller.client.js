@@ -52,6 +52,15 @@
             PageService.updatePage(vm.pid, page);
         }
 
+
+        // function deleteWebsite(websiteId) {
+        //     WebsiteService.deleteWebsite(websiteId);
+        //     // once complete, navigate back to the list of websites
+        //     $location.url("/user/" +vm.uid+"/website");
+        //     //#!/user/123/website
+        // }
+        //
+
         function deletePage(pageId) {
             PageService.deletePage(pageId);
             console.log("here");
