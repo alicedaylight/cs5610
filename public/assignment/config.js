@@ -112,8 +112,11 @@
             })
 
             .otherwise({
-                redirectTo : "/"
+                redirectTo : "/login"
             });
     }
 })();
 
+
+
+// new widget controller controls chooser widget

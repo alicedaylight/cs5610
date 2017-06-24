@@ -17,30 +17,13 @@
         vm.wgid = $routeParams.wgid;
 
         vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+        console.log(vm.widgets);
 
-        // vm.trust = trust;
-        // vm.getYoutubeEmbedUrl = getYoutubeEmbedUrl;
-        // // vm.widgetUrl = widgetUrl;
-        // //
-        // // function widgetUrl(widget) {
-        // //     var url = 'views/widget/templates/widget-' +widget.widgetType.toLowerCase()+ '.view.client.html';
-        // //     return url;
-        // // }
-        //
-        // vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-        // //     vm.widgets = WidgetService.findWidgetById(vm.uid);
-        //
-        // function trust(html) {
-        //     return $sce.trustAsHtml(html);
-        // }
-        //
-        // function getYoutubeEmbedUrl(linkUrl) {
-        //     var embedUrl = "https://www.youtube.com/embed/";
-        //     var linkUrlParts = linkUrl.split('/');
-        //     embedUrl += linkUrlParts[linkUrlPars.length - 1];
-        //     return $sce.trustAsResourceUrl(embedUrl);
-        // }
+        vm.clean = clean;
 
+        function clean(url) {
+            return $sce.trustAsResourceUrl(url);
+        }
     }
 
 
@@ -51,7 +34,14 @@
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
-        vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+
+        vm.createWidget = createWidget;
+
+        function createWidget(widget) {
+            WidgetService.createWidget(widget);
+        }
+
+        // vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
 
         // vm.futureFeature = futureFeature;
         // vm.featureMissingAlert = null;
@@ -103,7 +93,7 @@
         vm.editWidget = editWidget;
         vm.deleteWidget = deleteWidget;
 
-        if (vm.widget.widgetType === "HEADER") {
+        if (vm.widget.widgetType === "HEADING") {
             vm.widgetName = vm.widget.name;
             vm.widgetText = vm.widget.text;
             vm.widgetSize = vm.widget.size;
@@ -137,6 +127,7 @@
         }
 
         function deleteWidget() {
+            console.log("delete widget");
             WidgetService.deleteWidget(vm.wgid);
             $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
         }

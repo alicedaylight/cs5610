@@ -63,8 +63,8 @@
 
         function deletePage(pageId) {
             PageService.deletePage(pageId);
-            console.log("here");
-            $location.url("/user/" +vm.uid+ "/website" + vm.wid + "/page");
+            console.log("delete here");
+            $location.url("/user/" +vm.uid+ "/website/" + vm.wid + "/page");
         }
     }
 

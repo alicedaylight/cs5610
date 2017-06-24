@@ -5,11 +5,11 @@
 
     function WidgetService() {
         var widgets = [
-            {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, name: "GIZZY", text: "GIZMODO"},
-            {_id: "234", widgetType: "HEADER", pageId: "100", size: 4, name: "Ippsy", text: "Lorem ipsum"},
+            {_id: "123", widgetType: "HEADING", pageId: "321", size: 2, name: "GIZZY", text: "GIZMODO"},
+            {_id: "234", widgetType: "HEADING", pageId: "100", size: 4, name: "Ippsy", text: "Lorem ipsum"},
             {_id: "345", widgetType: "IMAGE", pageId: "321", name: "Lorem Pixel", text: "Pixel", width: "100%", url: "http://lorempixel.com/400/200/"},
             {_id: "456", widgetType: "HTML", pageId: "321", name: "Ipsy", text: "'<p>Facebook is decidedly an enemy of the open web, and sharing without consideration is a large part of what made the platform a well-oiled misinformation machine. The initiative to focus on community will take the form of Facebook Groups, according to Zuckerberg, a feature which is already seven years old. According to CNN, a billion people currently use Groups. Zuckerberg believes the company has “a good shot within five years or so to get to this goal of connecting a billion people to meaningful communities.” </p>'"},
-            {_id: "567", widgetType: "HEADER", pageId: "321", size: 4, name: "Lorrro", text: "Lorem ipsum"},
+            {_id: "567", widgetType: "HEADING", pageId: "321", size: 4, name: "Lorrro", text: "Lorem ipsum"},
             {_id: "678", widgetType: "YOUTUBE", pageId: "321", name: "Dire Straits", text: "Sultans of Swing", width: "100%", url: "https://www.youtube.com/embed/8Pa9x9fZBtY"},
             {_id: "789", widgetType: "HTML", pageId: "100", name: "Lorem", text: "<p>Lorem ipsum</p>"}
         ];
@@ -107,14 +107,17 @@
         }
 
 
+        // SOMETHING IS WRONG HERE I THINK
         function findWidgetsByPageId(pageId) {
-            for (w in widgets) {
+            var results = [];
+
+            for (var w in widgets) {
                 var widget = widgets[w];
                 if (parseInt(widget.pageId) === parseInt(pageId)) {
-                    return widget;
+                    results.push(widget);
                 }
             }
-            return null;
+            return results;
         }
 
         // previous function is checking against _id
@@ -145,20 +148,13 @@
             });
         }
 
+
         function deleteWidget(widgetId) {
-            for (w in widgets) {
-                var widget = widgets[w];
-                if (widget._id === widgetId) {
-                    deleteWidget(widget._id);
-                }
-            }
+            var oldWidget = findWidgetById(widgetId);
+            var index = widgets.indexOf(oldWidget);
+            widgets.splice(index, 1);
         }
 
-        // function deleteWidget(widgetId) {
-        //     var oldWidget = findWidgetById(widgetId);
-        //     var index = widgets.indexOf(oldWidget);
-        //     widgets.splice(index, 1);
-        // }
 
 
         function deleteWidgetsByPage(pageId) {
