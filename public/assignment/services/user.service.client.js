@@ -3,7 +3,11 @@
         .module("WebAppMaker")
         .factory('UserService', UserService);
 
+    // add $http as a param for UserServer()
     function UserService() {
+
+        // DELETE THIS USERS
+
         var users = [
             {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder", email: "alice@gmail.com"},
             {_id: "100", username: "a", password: "a", firstName: "a", lastName: "a", email: "a@gmail.com"},
@@ -74,6 +78,19 @@
                 }
             }
             return null;
+
+            // for assignment 4
+            // delete everything else above
+            // var cred = {
+            //     username : username,
+            //     password : password
+            // };
+            // return $http.post('/api/user', cred)
+
+            // same thing as above
+
+            // return $http.post('/api/user', {username: username, password: password})
+                                                    ///json body object
         }
 
         function updateUser(userId, user) {

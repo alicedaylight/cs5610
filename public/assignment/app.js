@@ -22,3 +22,7 @@
 // 2 arguments because we want it to be a write()
 // I want to get a hold of the WebAppMaker module
 // 'nameOfController'
+
+
+// server side code
+console.log('server side app');

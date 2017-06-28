@@ -32,3 +32,69 @@ req.body
 
     -------------------
 
+
+
+create another app.js file... need to pass in the app we created with express
+
+
+ module.exports = function(app)
+ // allows us to export the function that is defined in the app.js?
+
+ // req is built in .. provided by express
+
+ ---------------
+
+ why do we need two app.js
+
+ client side
+
+
+---------
+
+flikar will be optional(5 points bonus if you finish)
+
+------------------
+
+
+multer is the package for uploading
+
+------------
+
+use upload , call the multer .. define place where to upload the file
+* remember where you uploaded your file /../../public
+
+* parent parent and then public and upload
+
+----------
+
+
+
+
+(function () {
+  angular
+     .module("jgaDirectives", [])
+     .directive( jgaSortable, makeSortable)
+
+
+app js:
+ angular.module(WebAppMaker, [ngRoute, jgaSortable, imgUpload]);
+
+
+in list
+
+in website-list-view.client
+ul class="list-group cl-list-group-borderless" jga-sortable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
