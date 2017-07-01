@@ -1,4 +1,4 @@
-var app = require('../../../express');
+var app = require('../../express');
 
 module.exports = function(app){
 
@@ -36,12 +36,12 @@ module.exports = function(app){
 
     // ?QuertyString in name=value pairs
 
-    app.get('/api/user', function (req, res) {
-
-        console.log("get url");
-        console.log("test: " + req.query.username);
-        res.sendStatus(200);
-    });
+    // app.get('/api/user', function (req, res) {
+    //
+    //     console.log("get url");
+    //     console.log("test: " + req.query.username);
+    //     res.sendStatus(200);
+    // });
 
 
     // POST Calls.
@@ -111,19 +111,24 @@ module.exports = function(app){
     }
 
     function findUserByCredentials (req, res) {
+        console.log("findUserCred", username, password)
+
         var username = req.query.username;
         var pswd = req.query.password;
 
-        /*for (u in users){
-         var user = users[u];
-         if(user.username === username && user.password === pswd){
-         res.status(200).send(user);
-         return;
-         }
-         }*/
+        for (var u in users) {
+            var user = users[u];
 
-        var user = users.find(function (u) { return u.username==username && u.password==pswd  });
-        res.send(user);
+            if(user.username === username && user.password === pswd){
+                res.status(200).send(user);
+                return;
+            }
+        }
+
+        // var user = users.find(function (u) {
+        //     return u.username==username && u.password==pswd  });
+
+        res.status(404).send(null);
     }
 
 
