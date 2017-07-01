@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .factory('WebsiteService', WebsiteService);
 
-    function WebsiteService() {
+    function WebsiteService($http) {
         var websites = [
             {_id: "123", name: "Facebook", developerId: "456", desc: "Test01"},
             {_id: "234", name: "Tweeter", developerId: "456", desc: "Test02"},
@@ -48,15 +48,25 @@
             websites.push(newWebsite);
         }
 
+        // same as jose's findAllWebsitesForUser
         function findWebsitesByUser(userId) {
-            result = [];
-            for (var w in websites) {
-                var website = websites[w];
-                if (parseInt(website.developerId) === parseInt(userId)) {
-                    result.push(website);
-                }
-            }
-            return result;
+            // fetch this data from the server
+            var url = "/api/user/" +userId +"/website";
+            $http.get(url)
+                //unwrap the raw response
+                .then(function (response) {
+                    // return as embeded response
+                    return response.data;
+                });
+
+            var result = [];
+            // for (var w in websites) {
+            //     var website = websites[w];
+            //     if (parseInt(website.developerId) === parseInt(userId)) {
+            //         result.push(website);
+            //     }
+            // }
+            // return result;
         }
 
         // finds the website by ID

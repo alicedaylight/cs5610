@@ -1,9 +1,13 @@
+/**
+ * Created by xoxoumop3pisdn on 6/30/17.
+ */
 (function () {
     angular
         .module("jgaDirectives", [])
         .directive("jgaSortable", makeSortable);
 
     function makeSortable() {
+
         function linker(scope, element, attrb) {
             var start = -1;
             var end = -1;

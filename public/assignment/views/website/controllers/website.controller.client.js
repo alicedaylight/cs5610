@@ -10,8 +10,21 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+        // vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
 
+        // intention is that this is the code when this controller is
+        // initiall instantiated
+        function init() {
+            WebsiteService
+                // or findWebsitesByUser
+                .findWebsitesByUser(vm.uid)
+                .then(renderWebsites);
+        }
+        init();
+
+        function renderWebsites(websites) {
+            vm.websites = websites;
+        }
     }
 
     function NewWebsiteController($routeParams, WebsiteService, $location) {

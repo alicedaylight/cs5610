@@ -26,13 +26,23 @@
             //     }};
 
 
-            var user = UserService.findUserByCredentials(username, password);
-            if (user === null) {
-                // vm.error = "Username does not exist.";
-                vm.error = "Unable to login";
-            } else {
-                $location.url("/user/" + user._id);
-            }
+            // var user = UserService.findUserByCredentials(username, password);
+            UserService
+                .findUserByCredentials(username, password)
+                .then(function(found) {
+                    if(found !== null) {
+                        $location.url('/user/' + found._id);
+                    } else {
+                        vm.message = "sorry," + username + " not found. please try again";
+                    }
+                });
+
+            // if (user === null) {
+            //     // vm.error = "Username does not exist.";
+            //     vm.error = "Unable to login";
+            // } else {
+            //     $location.url("/user/" + user._id);
+            // }
         }
     }
 
@@ -49,22 +59,51 @@
                 vm.error = "Password does not match.";
                 return;
             }
-            var user = UserService.findUserByUsername(username);
-            if (user === null) {
-                user = {
-                    username: username,
-                    password: password,
-                    firstName: "",
-                    lastName: "",
-                    email: ""
-                };
-                UserService.createUser(user);
-                user = UserService.findUserByUsername(username);
-                $location.url("/user/" + user._id);
-            }
-            else {
-                vm.error = "Username already exists.";
-            }
+
+            // var user = UserService.findUserByUsername(username);
+            // makes things happen in synchronaziy
+            // allows you to write something that would otherwise nested
+            // we can write something that would otherwise be asynchronize (no particular order), we can write
+            // it as if it was in sychrnosize (one after the other in a sequence)
+            // write several asynch calls as if they were synchronized
+            UserService
+                .findUserByUsername(username)
+                .then(
+                    function () {
+                        vm.error = "sorry, that username is taken";
+                    },
+                    function () {
+                        var newUser = {
+                            username: username,
+                            password: password
+                        };
+                        // return of the entire then promise
+                        return UserService
+                            .createUser(newUser)
+                            // controller receives the promise, use the id to navigate to the profile `
+                    }
+                )
+                // catching it here (instead of having nested UserServices
+                .then(function (user) {
+                    $location.url('/user/' + user._id);
+                    // user id created from server side
+                });
+
+            // if (user === null) {
+            //     user = {
+            //         username: username,
+            //         password: password,
+            //         firstName: "",
+            //         lastName: "",
+            //         email: ""
+            //     };
+            //     UserService.createUser(user);
+            //     user = UserService.findUserByUsername(username);
+            //     $location.url("/user/" + user._id);
+            // }
+            // else {
+            //     vm.error = "Username already exists.";
+            // }
         }
     }
 
@@ -72,26 +111,62 @@
     //routeParams allow you to retrieve params from the route
     function ProfileController($routeParams, $timeout, UserService) {
         var vm = this;
-        vm.user = UserService.findUserById($routeParams.uid);
         vm.username = vm.user.username;
         vm.firstName = vm.user.firstName;
         vm.lastName = vm.user.lastName;
         vm.email = vm.user.email;
         vm.updateUser = updateUser;
+        vm.deleteUser = deleteUser;
 
-        function updateUser() {
-            var update_user = {
-                _id: $routeParams.uid,
-                firstName: vm.firstName,
-                lastName: vm.lastName,
-                email: vm.email
-            };
-            UserService.updateUser($routeParams.uid, update_user);
-            vm.updated = "Profile changes saved!";
+        UserService
+            .findUserById($routeParams.uid)
+            .then(renderUser, userError);
 
-            $timeout(function () {
-                vm.updated = null;
-            }, 3000);
+        // I'm asking for a userById and I get back an User
+        function renderUser(user) {
+            // console.log(response);
+            // unwrapped it on the service
+            vm.user = response.data;
+        }
+
+        function userError(error) {
+            vm.error = "User not found";
+        }
+
+        function deleteUser(user) {
+            UserService
+                // server is going to come back with a promise and we need to handle it
+                .deleteUser(user._id)
+                .then(function () {
+                    $location.url('/');
+                }, function () {
+                    vm.error = "Unable to unregister you";
+                });
+        }
+
+        function updateUser(user) {
+            UserService
+                // give me the id of the thing you are updating
+                // and actual instance of new object you are updating
+                .updateUser($routeParams.uid, user)
+                .then(function () {
+                    vm.message = "User update was successful";
+
+                })
+
+            // ming's code
+            // var update_user = {
+            //     _id: $routeParams.uid,
+            //     firstName: vm.firstName,
+            //     lastName: vm.lastName,
+            //     email: vm.email
+            // };
+            // UserService.updateUser($routeParams.uid, update_user);
+            // vm.updated = "Profile changes saved!";
+            //
+            // $timeout(function () {
+            //     vm.updated = null;
+            // }, 3000);
         }
     }
 })();

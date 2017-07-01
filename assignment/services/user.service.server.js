@@ -45,9 +45,15 @@ module.exports = function(app){
 
 
     // POST Calls.
-    app.post('/api/user', createUsers);
+    // restful api convention
+    // I am manipulating the collection of users and I am adding a brand new instance to that collection
+    app.post('/api/user', createUser);
 
     // GET Calls.
+
+    // I am manipulating the collection of users and reading it (get)
+    app.get('/api/user', findAllUsers);
+
     app.get('/api/user?username=username', findUserByUsername);
     app.get('/api/user?username=username&password=password', findUserByCredentials);
     app.get('/api/user/:uid', findUserById);
@@ -59,24 +65,36 @@ module.exports = function(app){
     app.delete('/api/user/:uid', deleteUser);
 
     /*API implementation*/
-    function createUsers(req, res) {
+    function createUser(req, res) {
+        // retrieve user from the request
+        // data encoded in the http body send over from the server
+        // retrieve from body of the server side
+        // all inputs coming from request side (body, paramm, querey... all from the browser)
+        // embeded inside request object generated from express library which parses the header, cookies, timestamp, api address
+        // all embeded in the request object
         var user = req.body;
+        user._id = (new Date()).getTime() + "";
+        users.push(user);
 
-        var newUser = {
-            _id: new Date().getTime(),
-            username: user.username,
-            password: user.password,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email
-        };
-        users.push(newUser);
+        // send back to client
+        res.json(user);
 
-        if(newUser){
-            res.status(200).send(newUser);
-        } else {
-            res.sendStatus(500);
-        }
+
+        // var newUser = {
+        //     _id: new Date().getTime(),
+        //     username: user.username,
+        //     password: user.password,
+        //     firstName: user.firstName,
+        //     lastName: user.lastName,
+        //     email: user.email
+        // };
+        // users.push(newUser);
+        //
+        // if(newUser){
+        //     res.status(200).send(newUser);
+        // } else {
+        //     res.sendStatus(500);
+        // }
     }
 
     function findUserByUsername (req, res) {
@@ -93,20 +111,21 @@ module.exports = function(app){
     }
 
     function findUserByCredentials (req, res) {
-        /*var username = req.query.username;
-         var pswd = req.query.password;
-         console.log("username: " + username);
-         console.log("pswd: " + pswd);
-         for (u in users){
+        var username = req.query.username;
+        var pswd = req.query.password;
+
+        /*for (u in users){
          var user = users[u];
          if(user.username === username && user.password === pswd){
          res.status(200).send(user);
          return;
          }
-         }
-         //res.status(404).send("not found!");*/
-        res.send(users[0]).sendStatus(200);
+         }*/
+
+        var user = users.find(function (u) { return u.username==username && u.password==pswd  });
+        res.send(user);
     }
+
 
     // everything that comes from client is stored in req
     // express parsers the headers the cookies, the url and embeds
@@ -119,7 +138,7 @@ module.exports = function(app){
 
         for (var u in users){
             var user = users[u];
-            if(user._id === uid){
+            if(String(user._id) === String(uid)){
                 // send back
                 res.status(200).send(user);
                 return;
@@ -135,6 +154,8 @@ module.exports = function(app){
         var uid = req.params.id;
         var new_user = req.body;
 
+        // find user by ID, when I find it, I will updated user and
+        // make it equal to the user I just parsed from the body
         for (u in users){
             var user = users[u];
             if(user._id === uid){
@@ -142,6 +163,7 @@ module.exports = function(app){
                 user.lastName = new_user.lastName;
                 user.email = new_user.email;
                 res.status(200).send(user);
+                // or res.sendStatus(200);
                 return;
             }
         }
@@ -149,6 +171,7 @@ module.exports = function(app){
     }
 
     function deleteUser(req,res) {
+        // params.id or params.uid
         var uid = req.params.id;
 
         for (u in users){
@@ -161,7 +184,42 @@ module.exports = function(app){
         }
         res.status(404).send("not found!");
     }
+
+    function findAllUsers(req, res) {
+        var username = req.query.username;
+        var password = req.query.password;
+
+        if (username && password) {
+            for (var u in users) {
+                var user = users[u];
+                if (user.username === username &&
+                    user.password === password) {
+                    res.json(user);
+                    return;
+                    // or res.send(user);
+                    // send can send back string, numbers, files, different mindtypes
+                    // hear it knows user is a json object so it sends back a json object
+                }
+            }
+            res.sendStatus(404);
+            return;
+        } else if (username) {
+            for (var u in users) {
+                var user = users[u];
+                if (user.username === username) {
+                    res.json(user);
+                    return;
+                }
+            }
+
+        } else {
+            res.json(users);
+
+        }
+
+    }
 };
+
 
 // module.exports=function(app) {
 //     // is use myApp here

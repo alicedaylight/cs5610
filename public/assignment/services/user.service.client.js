@@ -4,7 +4,11 @@
         .factory('UserService', UserService);
 
     // add $http as a param for UserServer()
-    function UserService() {
+
+    // dollar sign scope is used to interact with dom
+    // so controller can manipulate dom
+    // $http allos us to interact with world using http request
+    function UserService($http) {
 
         // DELETE THIS USERS
 
@@ -38,46 +42,99 @@
         }
 
         function createUser(user) {
-            var newUserId = getNextId();
-            var newUser = {
-                _id: newUserId,
-                username: user.username,
-                password: user.password,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email
-            };
-            users.push(newUser);
+            // use post to create new instances
+            var url = "/api/user/";
+            return $http.post(url, user)
+                .then(function (reponse) {
+                    return response.data;
+            });
+
+
+
+            // var newUserId = getNextId();
+            // var newUser = {
+            //     _id: newUserId,
+            //     username: user.username,
+            //     password: user.password,
+            //     firstName: user.firstName,
+            //     lastName: user.lastName,
+            //     email: user.email
+            // };
+            // users.push(newUser);
         }
 
 
         function findUserById(userId) {
-            for (var u in users) {
-                if(users[u]._id === userId) {
-                    return users[u];
-                }
-            }
-            return null;
+            var url = "/api/user/"+userId;
+
+            // .get is an asynch call
+            // this call might be running on a browers halfway across the world
+            // but our server might be running halfway across the other world
+            // network connectivity.. need to consider latency
+            // .get delegates request to the browser
+
+            // because we have a single thread js.. it usese ajax
+            // hey brower you know how to download resources you do it
+            // you handle this request
+            // browser is fetching data and eventually the server will respond
+
+            // need browser to notify single threaded js
+            // return api that whoever is interested in this data to
+            // register a callback
+
+            // call this function when youre done and then you can pass me the data
+            // http.get returns a promise
+            return $http.get(url)
+                .then(function (response) {
+                    // user is wrapped in another promise
+                    return response.data;
+
+                });
+
+            // this code above comes from the profile controller
+            // controller shouldn't need to wrap this data and thus we do this here
+            // in controller, it receives user
+
+            // return data back to controller
+
+            // for (var u in users) {
+            //     if(users[u]._id === userId) {
+            //         return users[u];
+            //     }
+            // }
+            // return null;
         }
 
         function findUserByUsername(username) {
-            for (u in users){
-                var user = users[u];
-                if(user.username === username){
-                    return user;
-                }
-            }
-            return null;
+            // the start is mapped to return all users and pass in username
+            var url = "/api/user?username="+username;
+            return $http.get(url)
+                .then (function (response) {
+                    return response.data;
+                });
+            // for (u in users){
+            //     var user = users[u];
+            //     if(user.username === username){
+            //         return user;
+            //     }
+            // }
+            // return null;
         }
 
         function findUserByCredentials(username, password) {
-            for (u in users){
-                var user = users[u];
-                if((user.username === username) && (user.password === password)){
-                    return user;
-                }
-            }
-            return null;
+            var url = "/api/user?username="+username+"&password="+password;
+            return $http.get(url)
+                .then (function (response) {
+                    return response.data;
+                });
+
+            // for (u in users){
+            //     var user = users[u];
+            //     if((user.username === username) && (user.password === password)){
+            //         return user;
+            //     }
+            // }
+            // return null;
 
             // for assignment 4
             // delete everything else above
@@ -94,17 +151,29 @@
         }
 
         function updateUser(userId, user) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
-            users[index].firstName = user.firstName;
-            users[index].lastName = user.lastName;
-            users[index].email = user.email;
+            var url = "/api/user/" +userId;
+            return $http.put(url, user)
+                .then(function(response) {
+                    return response.data;
+                });
+            
+            // var oldUser = findUserById(userId);
+            // var index = users.indexOf(oldUser);
+            // users[index].firstName = user.firstName;
+            // users[index].lastName = user.lastName;
+            // users[index].email = user.email;
         }
 
         function deleteUser(userId) {
-            var oldUser = findUserById(userId);
-            var index = users.indexOf(oldUser);
-            users.splice(index);
+            var url = "/api/user/" +userId;
+            return $http.delete(url, user)
+                .then(function(response) {
+                    return response.data;
+                });
+
+            // var oldUser = findUserById(userId);
+            // var index = users.indexOf(oldUser);
+            // users.splice(index);
         }
     }
 })();

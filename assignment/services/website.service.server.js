@@ -42,7 +42,7 @@ module.exports = function(app){
     function findAllWebsitesForUser(req, res) {
         var uid = req.userId;
         var results = [];
-        for (w in websites) {
+        for (var w in websites) {
             var website = websites[w];
             if (parseInt(website.developerId) === parseInt(uid)) {
                 results.push(website);
