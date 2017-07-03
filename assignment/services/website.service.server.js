@@ -40,15 +40,24 @@ module.exports = function(app){
     }
 
     function findAllWebsitesForUser(req, res) {
-        var uid = req.userId;
         var results = [];
         for (var w in websites) {
-            var website = websites[w];
-            if (parseInt(website.developerId) === parseInt(uid)) {
-                results.push(website);
+            if(websites[w].developerId === req.params.uid) {
+                results.push(websites[w]);
             }
         }
-        res.send(results);
+        res.json(results);
+
+
+        // var uid = req.userId;
+        // var results = [];
+        // for (var w in websites) {
+        //     var website = websites[w];
+        //     if (parseInt(website.developerId) === parseInt(uid)) {
+        //         results.push(website);
+        //     }
+        // }
+        // res.send(results);
     }
 
     function findWebsiteById(req, res) {

@@ -1,8 +1,7 @@
 console.log("server side app");
 
 // entry point from server side
-// loading services
-
+// loads server side services
 module.exports = function(app) {
     require("./services/user.service.server.js")(app);
     require("./services/website.service.server.js")(app);
