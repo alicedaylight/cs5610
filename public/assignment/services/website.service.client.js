@@ -4,14 +4,14 @@
         .factory('WebsiteService', WebsiteService);
 
     function WebsiteService($http) {
-        var websites = [
-            {_id: "123", name: "Facebook", developerId: "456", desc: "Test01"},
-            {_id: "234", name: "Tweeter", developerId: "456", desc: "Test02"},
-            {_id: "456", name: "Gizmodo", developerId: "456", desc: "Test03"},
-            {_id: "567", name: "Tic Tac Toe", developerId: "123", desc: "Test04"},
-            {_id: "678", name: "Checkers", developerId: "123", desc: "Test05"},
-            {_id: "789", name: "Chess", developerId: "234", desc: "Test06"}
-        ];
+        // var websites = [
+        //     {_id: "123", name: "Facebook", developerId: "456", desc: "Test01"},
+        //     {_id: "234", name: "Tweeter", developerId: "456", desc: "Test02"},
+        //     {_id: "456", name: "Gizmodo", developerId: "456", desc: "Test03"},
+        //     {_id: "567", name: "Tic Tac Toe", developerId: "123", desc: "Test04"},
+        //     {_id: "678", name: "Checkers", developerId: "123", desc: "Test05"},
+        //     {_id: "789", name: "Chess", developerId: "234", desc: "Test06"}
+        // ];
 
         // API here and implementing the function below
         var services = {
@@ -50,23 +50,15 @@
 
         // same as jose's findAllWebsitesForUser
         function findWebsitesByUser(userId) {
-            // fetch this data from the server
             var url = "/api/user/" +userId +"/website";
+
             $http.get(url)
-                //unwrap the raw response
+                //unwrap response
                 .then(function (response) {
-                    // return as embeded response
+                    // return as embedded response
                     return response.data;
                 });
 
-            var result = [];
-            // for (var w in websites) {
-            //     var website = websites[w];
-            //     if (parseInt(website.developerId) === parseInt(userId)) {
-            //         result.push(website);
-            //     }
-            // }
-            // return result;
         }
 
         // finds the website by ID

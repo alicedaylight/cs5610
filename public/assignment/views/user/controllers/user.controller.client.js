@@ -13,20 +13,6 @@
         vm.login = login;
 
         function login(username, password) {
-            // UserService
-            //     .findUserByCredientials(vm.username, vm. password)
-            //     .then(function (response) {
-            //         var user = response.data;
-            //         if (user) {
-            //             $location.url("/user/" +user._id);
-            //         } else {
-            //             $location.url("/login")
-            //
-            //         }
-            //     }};
-
-
-            // var user = UserService.findUserByCredentials(username, password);
             UserService
                 .findUserByCredentials(username, password)
                 .then(function(found) {
@@ -36,13 +22,6 @@
                         vm.message = "sorry," + username + " not found. please try again";
                     }
                 });
-
-            // if (user === null) {
-            //     // vm.error = "Username does not exist.";
-            //     vm.error = "Unable to login";
-            // } else {
-            //     $location.url("/user/" + user._id);
-            // }
         }
     }
 
@@ -70,6 +49,7 @@
                 .findUserByUsername(username)
                 .then(
                     function () {
+                        // found the user and don't want them to register
                         vm.error = "sorry, that username is taken";
                     },
                     function () {
@@ -77,56 +57,44 @@
                             username: username,
                             password: password
                         };
-                        // return of the entire then promise
                         return UserService
                             .createUser(newUser)
                             // controller receives the promise, use the id to navigate to the profile `
                     }
                 )
-                // catching it here (instead of having nested UserServices
                 .then(function (user) {
                     $location.url('/user/' + user._id);
-                    // user id created from server side
                 });
-
-            // if (user === null) {
-            //     user = {
-            //         username: username,
-            //         password: password,
-            //         firstName: "",
-            //         lastName: "",
-            //         email: ""
-            //     };
-            //     UserService.createUser(user);
-            //     user = UserService.findUserByUsername(username);
-            //     $location.url("/user/" + user._id);
-            // }
-            // else {
-            //     vm.error = "Username already exists.";
-            // }
         }
     }
 
     // routeParams.. allow us to delcare all of the 'when's' in config ngRoute
     //routeParams allow you to retrieve params from the route
-    function ProfileController($routeParams, $timeout, UserService) {
+    function ProfileController($routeParams, $timeout, UserService, $location) {
         var vm = this;
-        vm.username = vm.user.username;
-        vm.firstName = vm.user.firstName;
-        vm.lastName = vm.user.lastName;
-        vm.email = vm.user.email;
+        vm.uid = $routeParams.uid;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
 
         UserService
-            .findUserById($routeParams.uid)
+            .findUserById(vm.uid)
             .then(renderUser, userError);
 
-        // I'm asking for a userById and I get back an User
+        function updateUser(user) {
+            UserService
+                .updateUser(user._id, user)
+                // id of entity you are updating and actual instance of obj
+                // .updateUser(user._id, user)
+                .then (function () {
+                    vm.updated = "User update was successful!";
+                    $timeout(function () {
+                        vm.updated = null;
+                    }, 3000);
+                });
+        }
+
         function renderUser(user) {
-            // console.log(response);
-            // unwrapped it on the service
-            vm.user = response.data;
+            vm.user = user;
         }
 
         function userError(error) {
@@ -144,30 +112,6 @@
                 });
         }
 
-        function updateUser(user) {
-            UserService
-                // give me the id of the thing you are updating
-                // and actual instance of new object you are updating
-                .updateUser($routeParams.uid, user)
-                .then(function () {
-                    vm.message = "User update was successful";
-
-                })
-
-            // ming's code
-            // var update_user = {
-            //     _id: $routeParams.uid,
-            //     firstName: vm.firstName,
-            //     lastName: vm.lastName,
-            //     email: vm.email
-            // };
-            // UserService.updateUser($routeParams.uid, update_user);
-            // vm.updated = "Profile changes saved!";
-            //
-            // $timeout(function () {
-            //     vm.updated = null;
-            // }, 3000);
-        }
     }
 })();
 //if you use the #! standard... google says you will provide me a server side equivalance
@@ -215,3 +159,10 @@
 // // narrowing the scope as opposed to letting controllers upstream in higher scope
 // // variables in higher scope are availible to lower scope
 
+// client side services used by controller
+// server side receive http request.. process something and return back reponse
+// client side services will receive responses and send it to the controller
+// controller calls client side fires up request handled by server side services
+// app.post.. and when they get api (app.get), findUserBy call for example findWebsiteForUsers... it will do something
+// and then it will return the result
+//

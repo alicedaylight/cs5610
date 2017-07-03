@@ -26,21 +26,34 @@
     <form class="cl-form-bottom-padding">
         <label for="username">Username</label>
         <input ng-model="model.user.username"
-               type="text" class="form-control" placeholder="alicedaylight" id="username" required>
+               type="text"
+               class="form-control"
+               placeholder="alicedaylight"
+               id="username" required>
         <label for="email">Email</label>
         <input ng-model="model.user.email"
-               type="email" class="form-control" placeholder="alicedaylight@gmail.com" id="email" required>
+               type="email"
+               class="form-control"
+               placeholder="alicedaylight@gmail.com"
+               id="email" required>
         <label for="fName">First Name</label>
         <input ng-model="model.user.firstName"
-               type="text" class="form-control" placeholder="Alice" id="fName" required>
+               type="text"
+               class="form-control"
+               placeholder="Alice"
+               id="fName" required>
         <label for="lName">Last Name</label>
         <input ng-model="model.user.lastName"
-               type="text" class="form-control" placeholder="Day" id="lName" required>
+               type="text"
+               class="form-control"
+               placeholder="Day"
+               id="lName" required>
     </form>
 
-    <a ng-click="model.updateUser(model.username)"
+    <!--model.user-->
+    <a ng-click="model.updateUser(model.user)"
        class="btn btn-success btn-block">Update</a>
-    <a ng-click="model.deleteUser(model.username)"
+    <a ng-click="model.deleteUser(model.user)"
        class="btn btn-danger btn-block">Unregister</a>
     <a class="btn btn-primary btn-block"
        href="#!/user/{{model.user._id}}/website">Websites</a>
