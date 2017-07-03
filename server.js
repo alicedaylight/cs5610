@@ -1,16 +1,17 @@
 var express = require('express');
 
+//initialize app as an express application
+var app = express();
 var bodyParser = require('body-parser');
 // need specific parses that knows how to parse the body and extract and convert to correct representation
 //
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 // var express = require('./express');
 
 // loads the express from the node modeules and not the native express
 
-//initialize app as an express application
-var app = express();
+
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname+'/public/assignment'));
