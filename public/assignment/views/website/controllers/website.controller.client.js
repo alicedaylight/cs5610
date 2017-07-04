@@ -7,6 +7,7 @@
 
     function WebsiteListController($routeParams, WebsiteService) {
         var vm = this;
+
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
@@ -16,9 +17,9 @@
                 .findWebsitesByUser(vm.uid)
                 .then(renderWebsites);
 
-        function renderWebsites(websites) {
-            vm.websites = websites;
-        }
+            function renderWebsites(websites) {
+                vm.websites = websites;
+            }
     }
 
     function NewWebsiteController($routeParams, WebsiteService, $location) {

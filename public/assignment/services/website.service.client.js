@@ -52,7 +52,7 @@
         function findWebsitesByUser(userId) {
             var url = "/api/user/" +userId +"/website";
 
-            $http.get(url)
+            return $http.get(url)
                 //unwrap response
                 .then(function (response) {
                     // return as embedded response
