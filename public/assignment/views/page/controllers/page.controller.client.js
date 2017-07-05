@@ -7,13 +7,23 @@
 
     function PageListController($routeParams, PageService) {
         var vm = this;
+
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        // vm.pages = PageService.findPageById(vm.pid);
-        vm.pages = PageService.findPageByWebsiteId(vm.wid);
-        console.log(vm.pages);
-        // vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+
+        PageService
+            .findAllPagesForWebsite(vm.wid)
+            .then(renderPages);
+
+        function renderPages(pages) {
+            vm.pages = pages;
+
+        }
+        // // vm.pages = PageService.findPageById(vm.pid);
+        // vm.pages = PageService.findPageByWebsiteId(vm.wid);
+        // console.log(vm.pages);
+        // // vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
     }
 
     function NewPageController($routeParams, PageService, $location) {
@@ -21,23 +31,43 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-        vm.createPage = createPage;
 
-        function createPage(name, description) {
-            var page = {
-                name: name,
-                description: description
-            };
+        vm.newPage = newPage;
 
-            PageService.createPage(vm.uid, page);
-            $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+        function newPage(name, description) {
+            PageService
+                .findPageById(vm.pid)
+                .then(
+                    function() {
+                        vm.error = "Sorry, that page is taken";
+                },
+                function () {
+                        var newPage = {
+                            name: name,
+                            description : description
+                        };
+                        return PageService
+                            .createPage(vm.uid, newPage)
+                    }
+                )
+                .then(function (page) {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+                });
         }
+
+        // function createPage(name, description) {
+        //     var page = {
+        //         name: name,
+        //         description: description
+        //     };
+        //
+        //     PageService.createPage(vm.uid, page);
+        //     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
+        // }
     }
 
 
-    function EditPageController($routeParams, PageService, $location) {
-        console.log("inside edit page controller");
-
+    function EditPageController($routeParams, PageService, $location, $timeout) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -48,24 +78,40 @@
 
         vm.page = PageService.findPageById(vm.pid);
 
-        function updatePage(page) {
-            PageService.updatePage(vm.pid, page);
+        PageService
+            .findPageById(vm.pid)
+            .then(renderPage, pageError);
+
+        function renderPage(page) {
+            vm.page = page;
         }
 
+        function pageError(error) {
+            vm.error = "Page not found";
+        }
 
-        // function deleteWebsite(websiteId) {
-        //     WebsiteService.deleteWebsite(websiteId);
-        //     // once complete, navigate back to the list of websites
-        //     $location.url("/user/" +vm.uid+"/website");
-        //     //#!/user/123/website
-        // }
-        //
+        function updatePage(page) {
+            PageService
+            // or vm._id
+                .updatePage(page.pid, page)
+                .then(function() {
+                    vm.updated = "Page update was successful";
+                    $timeout(function() {
+                        vm.updated = null;
+                    }, 3000);
+                });
+        }
 
         function deletePage(pageId) {
-            PageService.deletePage(pageId);
-            console.log("delete here");
-            $location.url("/user/" +vm.uid+ "/website/" + vm.wid + "/page");
+            PageService
+                .deletePage(pageId)
+                .then(function() {
+                    $location.url("/user/" +vm.uid+ "/website/" + vm.wid + "/page");
+                }, function() {
+                    vm.error = "Unable to delete page";
+                });
         }
+
     }
 
 
