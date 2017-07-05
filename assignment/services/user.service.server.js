@@ -30,7 +30,7 @@ module.exports = function(app){
         user._id = (new Date()).getTime() + "";
         users.push(user);
         res.json(user);
-}
+    }
 
     function findUserByUsername (req, res) {
         var username = req.query.username;
