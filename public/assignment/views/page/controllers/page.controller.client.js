@@ -35,22 +35,20 @@
         vm.newPage = newPage;
 
         function newPage(name, description) {
-            PageService
-                .findPageById(vm.pid)
-                .then(
-                    function() {
-                        vm.error = "Sorry, that page is taken";
-                },
-                function () {
+        //     PageService
+        //         .findPageById(vm.pid)
+        //         .then(
+        //             function() {
+        //                 vm.error = "Sorry, that page is taken";
+        //         },
+        //         function () {
                         var newPage = {
                             name: name,
                             description : description
                         };
                         return PageService
                             .createPage(vm.uid, newPage)
-                    }
-                )
-                .then(function (page) {
+                            .then(function (page) {
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
                 });
         }
@@ -93,12 +91,14 @@
         function updatePage(page) {
             PageService
             // or vm._id
-                .updatePage(page.pid, page)
+                .updatePage(page._id, page)
                 .then(function() {
+                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/");
                     vm.updated = "Page update was successful";
                     $timeout(function() {
                         vm.updated = null;
                     }, 3000);
+
                 });
         }
 

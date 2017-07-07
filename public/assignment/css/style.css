@@ -126,6 +126,16 @@ a:hover{
 
 }
 
+.cl-widget-item {
+    margin: 1.5em 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cl-widget-item h1 {
+    margin: 0;
+}
+
 .cl-widget-header {
     font-size: 36px;
     text-align: center;
@@ -136,3 +146,6 @@ a:hover{
     text-align: center;
 }
 
+.hand {
+    cursor: pointer;
+}

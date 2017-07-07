@@ -85,6 +85,7 @@
         // should this call findPageById or findPageByWebsiteId
         // ^ no
         function updatePage(pageId, page) {
+            console.log(page);
             var url = '/api/page/' +pageId;
 
             return $http.put(url, page)

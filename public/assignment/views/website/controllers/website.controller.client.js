@@ -32,14 +32,15 @@
         vm.newWebsite = newWebsite;
 
         function newWebsite(name, description) {
-            WebsiteService
+
+            // WebsiteService
             // .findWebsitesByUser(vm.uid)
-                .findWebsiteById(vm.wid)
-                .then(
-                    function() {
-                        vm.error = "Sorry, that website is taken";
-                    },
-                    function () {
+            //     .findWebsiteById(vm.wid)
+            //     .then(
+            //         function() {
+            //             vm.error = "Sorry, that website is taken";
+            //         },
+            //         function () {
                         var newWebsite = {
                             name: name,
                             desc: description
@@ -47,11 +48,7 @@
                         };
                         return WebsiteService
                             .createWebsite(vm.uid, newWebsite)
-                        // controller receives the promise and uses it
-                        // to navigate
-                    }
-                )
-                .then (function (website) {
+                            .then (function (website) {
                     $location.url("/user/" + vm.uid + "/website");
                 });
         // }
@@ -100,14 +97,17 @@
             WebsiteService
             // or vm.wid
             //     .updateWebsite(website._id, website)
-                .updateWebsite(website.wid, website)
+                .updateWebsite(website._id, website)
 
-                .then(function() {
-                    vm.updated = "Website update was successful!";
-                    $timeout(function() {
-                        vm.updated = null;
-                    }, 3000);
+                .then(function(website) {
+                    // vm.updated = "Website update was successful!";
+                    // $timeout(function() {
+                    //     vm.updated = null;
+                    // }, 3000);
+                    // console.log("#!/user/" + vm.uid + "/website");
+                    $location.url("/user/" + vm.uid + "/website");
                 });
+
         }
 
         function deleteWebsite(websiteId) {

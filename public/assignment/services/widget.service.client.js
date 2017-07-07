@@ -24,18 +24,18 @@
 
         return services;
 
-        function getNextId() {
-            function getMaxId(maxId, currentId) {
-                var current = parseInt(currentId._id);
-                if (maxId > current) {
-                    return maxId;
-                } else {
-                    return current + 1;
-                }
-            }
-
-            return widgets.reduce(getMaxId, 0).toString();
-        }
+        // function getNextId() {
+        //     function getMaxId(maxId, currentId) {
+        //         var current = parseInt(currentId._id);
+        //         if (maxId > current) {
+        //             return maxId;
+        //         } else {
+        //             return current + 1;
+        //         }
+        //     }
+        //
+        //     return widgets.reduce(getMaxId, 0).toString();
+        // }
 
         function createHTMLWidget(widgetId, pageId, widget) {
             return {
@@ -86,13 +86,15 @@
         function createWidget(pageId, widget) {
             var url = '/api/page/' +pageId + '/widget';
 
-            return $http.post(url, widge)
+            return $http.post(url, widget)
                 .then(function(response) {
                     return response.data;
                 });
-            // var newWidgetId = getNextId();
-            // var newWidget = createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
-            // widgets.push(newWidget);
+
+
+            var newWidgetId = getNextId();
+            var newWidget = createWidgetMap[widget.widgetType](newWidgetId, pageId, widget);
+            widgets.push(newWidget);
         }
 
         // function findWidgetsByPageId(pageId) {
@@ -108,7 +110,8 @@
 
         // SOMETHING IS WRONG HERE I THINK
         function findWidgetsByPageId(pageId) {
-            var url = '/api/widget/' +widgetId;
+            // var url = '/api/widget/' +pageId;
+            var url = '/api/page/' +pageId+ '/widget';
 
             return $http.get(url)
                 .then (function(response) {
@@ -148,7 +151,7 @@
             var url = '/api/widget/' +widgetId;
 
             return $http.put(url, widget)
-                .then(function(reponse) {
+                .then(function(response) {
                     return response.data;
                 });
             // var oldWidget = findWidgetById(widgetId);
@@ -183,7 +186,7 @@
 
 
         // the deleteWidget function in server service takes in a pageId
-        function deleteWidgetsByPage(pageId) {
+        function deleteWidgetsByPage(widgetId) {
             var url ='/api/widget/' +widgetId;
 
             return $http.delete(url)
