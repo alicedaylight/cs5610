@@ -1,0 +1,68 @@
+Assignment 5
+- From server side services doing a lot of tuning
+- All changes on server side services (from assignment 4) .. to call database
+- server side is on mock folder of ming's code
+
+- use cdn for text angular
+- mongodb one of non-relational databse
+- embedded
+- document based db
+- instead of tables; called collections
+         - need to define what should be inside this collection
+         - need to have a schema (create a model)
+         -
+
+// define a user schema
+// user schema requires schema server . js file
+
+angular js provides $ .. not backend
+
+we do not use angular in backend so backend always uses
+- node.js
+- express
+- backends needs to talk to db.. need queue
+
+-1. create schema (remember to pass mongoose)
+-2. schema to create model
+___Model.
+
+can use mongoose api like create (CRUD operations)
+
+app js connect model with services
+app js needs to require model.services
+
+model.services needs to return model?
+
+
+when talking to db
+- use promise q
+var q = require("q");
+
+function createWebsite(website) {
+var deffered = q.defer()
+// defer varaible will resolve you either theres an resolved, reject
+    return websiteModel.create(webite);
+
+
+need .then to handle promise calls
+
+return deferred.promise
+{
+
+
+if use http do not need to use q
+
+$http call is a defer call.. you call it you async you handle it
+
+if use a timeout call (hits server every 5 seconds) you cannot use a .then
+you have to turn that to a q
+
+
+// to start the databse server type
+
+'mongod'
+
+
+sudo su mongod
+
+run from server press restart

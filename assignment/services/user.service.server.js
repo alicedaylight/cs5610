@@ -24,6 +24,12 @@ module.exports = function(app){
     // DELETE Calls.
     app.delete('/api/user/:uid', deleteUser);
 
+    // app.get('/api/create/all.users', createAllUsers);
+
+    // function createAllUsers(req, res) {
+    //
+    // }
+
     /*API implementation*/
     function createUser(req, res) {
         var user = req.body;

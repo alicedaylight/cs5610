@@ -202,14 +202,24 @@ module.exports = function(app){
 
     // Is something wrong here
     function deleteWidget(req, res) {
-        var widgetId = req.params.wid;
+        var widgetId = req.params.widgetId;
+        console.log(widgetId);
+
+        for(var w in widgets) {
+            if(widgets[w]._id === widgetId) {
+                widgets.splice(w, 1);
+                res.sendStatus(200);
+                return;
+            }
+        }
+        res.sendStatus(404);
 
         // var oldWidget = findWidgetById(widgetId);
-        var oldWidget = findWidgetLocal(widgetId);
-
-        var index = widgets.indexOf(oldWidget);
-        widgets.splice(index, 1);
-        res.sendStatus(200);
+        // var oldWidget = findWidgetLocal(widgetId);
+        //
+        // var index = widgets.indexOf(oldWidget);
+        // widgets.splice(index, 1);
+        // res.sendStatus(200);
     }
 
 
