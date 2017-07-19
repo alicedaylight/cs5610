@@ -1,8 +1,13 @@
 console.log("server side app");
+ // var mongoose = require('mongoose');
+// mongoose.connect('mongod://loca
+// mongoose.Promise = require('q').Promise;
 
 // entry point from server side
 // loads server side services
 module.exports = function(app) {
+
+
     require("./services/user.service.server.js")(app);
     require("./services/website.service.server.js")(app);
     require("./services/page.service.server.js")(app);
