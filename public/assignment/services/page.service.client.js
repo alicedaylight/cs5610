@@ -48,18 +48,6 @@
             // pages.push(newPage);
         }
 
-        // same as findAllPagesForWebsite in server service
-        // function findPageByWebsiteId(websiteId) {
-        //     var url = '/api/website/' +websiteId + '/page';
-        //
-        //     return $http.get(url)
-        //         .then(function(response) {
-        //             return response.data;
-        //         });
-        //
-        // }
-
-
         function findAllPagesForWebsite(websiteId) {
             var url = '/api/website/' +websiteId + '/page';
 
@@ -93,12 +81,6 @@
                     return response.data;
                 });
 
-            // var oldPage = findPageById(pageId);
-            // var index = pages.indexOf(oldPage);
-            //
-            // pages[index].name = page.name;
-            // // pages[index].websiteId = page.websiteId;
-            // pages[index].description = page.description;
         }
 
 

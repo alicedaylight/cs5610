@@ -1,10 +1,10 @@
 /**
- * Created by xoxoumop3pisdn on 6/30/17.
+ * Created by xoxoumop3pisdn on 7/13/17.
  */
 (function () {
     angular
-        .module("jgaDirectives", [])
-        .directive("jgaSortable", makeSortable);
+        .module("wbdvDirectives", [])
+        .directive("wbdvSortable", makeSortable);
 
     function makeSortable() {
 
@@ -18,14 +18,12 @@
                     },
                     stop: function (event, ui) {
                         end = $(ui.item).index();
-                        console.log(start, end);
-                        // if(start >= end) {
-                        //     start--;
-                        // }
+                        //console.log(start, end);
+
                         if(end >= start){
                             end = end + 1;
                         }
-                        console.log(start, end);
+                        //console.log(start, end);
                         scope.callback({
                             start : start,
                             end : end

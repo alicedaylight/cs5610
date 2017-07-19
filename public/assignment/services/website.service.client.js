@@ -74,10 +74,6 @@
                     console.log(response);
                     return response.data;
                 });
-            // find the website that matches the websiteID
-            // return websites.find(function (website) {
-            //     return website._id === websiteId;
-            // });
         }
 
         function updateWebsite(websiteId, website) {
@@ -87,11 +83,6 @@
                 .then(function(response) {
                     return response.data;
                 });
-
-            // var oldWebsite = findWebsiteById(websiteId);
-            // var index = websites.indexOf(oldWebsite);
-            // websites[index].name = website.name;
-            // websites[index].desc = website.desc;
         }
 
 
@@ -101,10 +92,6 @@
                 .then(function(response) {
                     return response.data;
                 });
-
-            // var oldWebsite = findWebsiteById(websiteId);
-            // var index = websites.indexOf(oldWebsite);
-            // websites.splice(index, 1);
         }
 
 

@@ -24,14 +24,16 @@
         function renderWidgets(widgets) {
             vm.widgets = widgets;
         }
-        //
-        // vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-        // console.log(vm.widgets);
 
         vm.clean = clean;
 
         function clean(url) {
             return $sce.trustAsResourceUrl(url);
+        }
+
+        vm.sortItem = function (start, end) {
+            WidgetService
+                .sortItem(start,end)
         }
 
     }

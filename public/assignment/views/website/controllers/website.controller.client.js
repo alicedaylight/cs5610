@@ -23,7 +23,6 @@
     }
 
     function NewWebsiteController($routeParams, WebsiteService, $location) {
-        // console.log(" inside newWebsiteController")
         var vm = this;
 
         vm.uid = $routeParams.uid;
@@ -32,15 +31,6 @@
         vm.newWebsite = newWebsite;
 
         function newWebsite(name, description) {
-
-            // WebsiteService
-            // .findWebsitesByUser(vm.uid)
-            //     .findWebsiteById(vm.wid)
-            //     .then(
-            //         function() {
-            //             vm.error = "Sorry, that website is taken";
-            //         },
-            //         function () {
                         var newWebsite = {
                             name: name,
                             desc: description
@@ -51,15 +41,6 @@
                             .then (function (website) {
                     $location.url("/user/" + vm.uid + "/website");
                 });
-        // }
-
-        // function createWebsite(name, description) {
-        //     var website = {
-        //         name: name,
-        //         desc: description
-        //     };
-        //     WebsiteService.createWebsite(vm.uid, website);
-        //     $location.url("/user/" + vm.uid + "/website");
         }
     }
 
@@ -100,11 +81,6 @@
                 .updateWebsite(website._id, website)
 
                 .then(function(website) {
-                    // vm.updated = "Website update was successful!";
-                    // $timeout(function() {
-                    //     vm.updated = null;
-                    // }, 3000);
-                    // console.log("#!/user/" + vm.uid + "/website");
                     $location.url("/user/" + vm.uid + "/website");
                 });
 
@@ -112,6 +88,7 @@
 
         function deleteWebsite(websiteId) {
             WebsiteService
+                // .deleteWebsite(vm.uid, websiteId)
                 .deleteWebsite(websiteId)
                 .then(function() {
                     $location.url("/user/" +vm.uid+"/website");
@@ -119,27 +96,7 @@
                     vm.error = "Unable to delete you";
                 });
         }
-
-
-        // // retrieve that one website now that we know it's ID
-        // vm.website = WebsiteService.findWebsiteById(vm.wid);
-        // console.log(vm.wid);
-        // console.log(vm.website);
-        //
-        //
-        // // function updateWebsite(website) {
-        // //     WebsiteService.updateWebsite(vm.wid, website);
-        // //
-        // // }
-        //
-        // function deleteWebsite(websiteId) {
-        //     WebsiteService.deleteWebsite(websiteId);
-        //     // once complete, navigate back to the list of websites
-        //     $location.url("/user/" +vm.uid+"/website");
-        //     //#!/user/123/website
-        // }
     }
-
 
 })();
 
