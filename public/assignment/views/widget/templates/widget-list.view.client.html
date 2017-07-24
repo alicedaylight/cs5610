@@ -22,7 +22,16 @@
     <div ng-switch-when="IMAGE">
         <ng-include src="'/views/widget/templates/widget-image.view.client.html'"></ng-include>
     </div>
-    <div ng-switch-when="YOUTUBE">
+    <div ng-switch-when="HTML">
+        <ng-include src="'/views/widget/templates/widget-html.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="TEXT">
+        <ng-include src="'/views/widget/templates/widget-text.view.client.html'"></ng-include>
+    </div>
+    <div ng-switch-when="YOUTUBE" class="youtube-widget">
+        <!--<iframe>-->
+            <!---->
+        <!--</iframe>-->
         <ng-include src="'/views/widget/templates/widget-youtube.view.client.html'"></ng-include>
     </div>
 </div>

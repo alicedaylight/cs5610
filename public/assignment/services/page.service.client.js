@@ -37,15 +37,6 @@
                 .then(function(response) {
                     return response.data;
                 });
-            // var newPageId = getNextId();
-            // var newPage = {
-            //     _id: newPageId,
-            //     name: page.name,
-            //     // websiteId: page.websiteId,
-            //     websiteId: websiteId,
-            //     description: page.description
-            // };
-            // pages.push(newPage);
         }
 
         function findAllPagesForWebsite(websiteId) {

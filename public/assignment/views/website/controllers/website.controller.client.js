@@ -24,7 +24,6 @@
 
     function NewWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
-
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
@@ -57,10 +56,6 @@
         // displays all of the websites on the lefthand side of the page (same as website-list)
 
         vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
-
-        // WebsiteService
-        //     .findWebsitesByUser(vm.uid)
-        //     .then();
 
         WebsiteService
             .findWebsiteById(vm.wid)

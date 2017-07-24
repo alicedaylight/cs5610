@@ -35,13 +35,7 @@
         vm.newPage = newPage;
 
         function newPage(name, description) {
-        //     PageService
-        //         .findPageById(vm.pid)
-        //         .then(
-        //             function() {
-        //                 vm.error = "Sorry, that page is taken";
-        //         },
-        //         function () {
+            console.log("new Page Controller");
                         var newPage = {
                             name: name,
                             description : description
@@ -52,16 +46,6 @@
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
                 });
         }
-
-        // function createPage(name, description) {
-        //     var page = {
-        //         name: name,
-        //         description: description
-        //     };
-        //
-        //     PageService.createPage(vm.uid, page);
-        //     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
-        // }
     }
 
 

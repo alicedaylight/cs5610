@@ -52,6 +52,7 @@
                 templateUrl: "views/user/templates/profile.view.client.html",
                 controller: "ProfileController",
                 controllerAs: "model"
+                // resolve: { loggedin : checkLoggedin}
             })
             // collen says it's not a literal string
             // it's a placeholder and we're giving it the name uid
@@ -115,6 +116,26 @@
                 redirectTo : "/login"
             });
     }
+
+    // var checkLoggedin = function($q, $http, $location, $rootScope) {
+    //     var deferred = $q.defer();
+    //
+    //     $http.get('/api/loggedin').then(function(user) {
+    //         $rootScope.errorMessage = null;
+    //         if(user !== '0') {
+    //             $rootScope.currentUser = user;
+    //             deferred.resolve();
+    //         } else {
+    //             $rootScope.erro = "You need to log in.";
+    //             deferred.reject();
+    //             $location.url('/login');
+    //         }
+    //     });
+    //     return deferred.promise;
+    // }
+
+    // var adminLoggedIn
+    //write another api ./api/adminLoggedIn
 })();
 
 

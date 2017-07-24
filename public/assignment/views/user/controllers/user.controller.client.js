@@ -45,25 +45,18 @@
             // we can write something that would otherwise be asynchronize (no particular order), we can write
             // it as if it was in sychrnosize (one after the other in a sequence)
             // write several asynch calls as if they were synchronized
+            var newUser = {
+                username: username,
+                password: password
+            };
             UserService
-                .findUserByUsername(username)
-                .then(
-                    function () {
-                        // found the user and don't want them to register
-                        vm.error = "sorry, that username is taken";
-                    },
-                    function () {
-                        var newUser = {
-                            username: username,
-                            password: password
-                        };
-                        return UserService
-                            .createUser(newUser)
-                            // controller receives the promise, use the id to navigate to the profile `
-                    }
-                )
+                .createUser(newUser)
+                // .findUserByUsername(username)
                 .then(function (user) {
                     $location.url('/user/' + user._id);
+                })
+                .catch(function (err) {
+                    vm.error = "Username taken.";
                 });
         }
     }
