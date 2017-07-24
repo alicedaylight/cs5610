@@ -6,7 +6,7 @@ module.exports = function(mongoose){
     var websiteSchema = new Schema({
         _user : {type : Schema.Types.ObjectId, ref : 'User'},
         name : {type : String, required : true},
-        description : String,
+        desc : String,
         pages : [{
             type : Schema.Types.ObjectId,
             ref : 'Page'

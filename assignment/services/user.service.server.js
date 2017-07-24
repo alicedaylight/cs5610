@@ -1,10 +1,19 @@
+// var passport = require('passport');
+// var localStrategy = require('passport-local').strategy;
+// var bcrypt = require("bcrypt-nodejs");
+// var cookieParser = require('cookie-parser');
+// var session = require('express-session');
+
+// localStrategy
+// 1. last param is a function pointer (done)
+
 module.exports = function(app, models){
     var users = [];
     // POST Calls.
     app.post('/api/user', createEntity);
 
     // GET Calls.
-    app.get('/api/user', getUser);
+    app.get('/api/user/', getUser);
     app.get('/api/user/:uid', getUserById);
 
     // PUT Calls.
@@ -13,11 +22,14 @@ module.exports = function(app, models){
     // DELETE Calls.
     app.delete('/api/user/:uid', deleteFromSystem);
 
+    console.log('user.service.server.js');
+
     /* REST Functions */
     function getUser(req, res) {
+        console.log('getUser called');
         var query = req.query;
         // var user = null;
-        if(query.username && query.password){
+        if(query.username && query.password) {
             models
                 .userModel
                 .findUserByCredentials(query.username, query.password)
@@ -34,13 +46,15 @@ module.exports = function(app, models){
                         res.sendStatus(400).send(error);
                     }
                 );
+        } else {
+            res.sendStatus(400);
         }
     }
 
     function getUserById(req, res){
         var params = req.params;
         if(params.uid){
-            model
+            models
                 .userModel
                 .findUserById(params.uid)
                 .then(
@@ -60,37 +74,56 @@ module.exports = function(app, models){
     }
 
     function createEntity(req, res) {
+        console.log("createEntityTop");
         var user = req.body;
-        model
+        models
+        // from models.server map ('userModel')
             .userModel
             .findUserByUsername(user.username)
             .then(
                 function (response) {
+                    console.log("createEntty2", response)
                     if(response){
                         //error username already exist
                         res.sendStatus(400).send(error);
                     }
                     else {
-                        model
+                        models
                             .userModel
                             .createUser(user)
                             .then(
                                 function(newUser){
+                                    console.log('createEntity3', newUser)
                                     res.json(newUser);
                                 },
                                 function(error){
-                                    res.sendStatus(400).send(error);
+                                    console.log('err', error);
+                                    res.sendStatus(500);
                                 }
                             );
                     }
+                }, function (err) {
+                    console.log('err', err);
+                    res.sendStatus(500)
                 }
+
+
             );
     }
+
+    // function checkAdmin(req, res) {
+    //     if(req.isAuthenticated()) {
+    //         var user = req.user;
+    //         if (user.role === "Admin") {
+    //             res.send(user);
+    //         }
+    //     }
+    // }
 
     function updateDetails(req, res){
         var uid = req.params.uid;
         var user = req.body;
-        model
+        models
             .userModel
             .updateUser(uid, user)
             .then(
@@ -106,7 +139,7 @@ module.exports = function(app, models){
     function deleteFromSystem(req, res){
         var uid = req.params.uid;
         if(uid){
-            model
+            models
                 .userModel
                 .deleteUser(uid)
                 .then(

@@ -13,6 +13,9 @@ module.exports = function (app, model) {
     // PUT Calls.
     app.put('/api/widget/:wgid', updateDetails);
     app.put('/api/page/:pid/widget', sortWidgets);
+    //app.put('/api/page/:pid/widget?start=index1&end=index2',)
+    // pageId - id of page whose widgets are being displayed
+    // start initial index of the widget before being reordered
 
     // DELETE Calls.
     app.delete('/api/widget/:wgid', deleteFromSystem);

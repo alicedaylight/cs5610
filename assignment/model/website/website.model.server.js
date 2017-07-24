@@ -3,22 +3,30 @@ module.exports = function(mongoose, userModel) {
     var websiteModel = mongoose.model('Website', websiteSchema);
 
     var api = {
+     'addPageToWebsite' : addPageToWebsite,
+     'deleteWebsite' : deleteWebsite,
      'createWebsiteForUser': createWebsiteForUser,
      'findAllWebsitesForUser': findAllWebsitesForUser,
      'findWebsiteById': findWebsiteById,
-     'updateWebsite': updateWebsite,
-     // 'removePageFromWebsite': removePageFromWebsite,
-     'deleteWebsite': deleteWebsite
-
-     };
+     'updateWebsite': updateWebsite
+        // 'removePageFromWebsite': removePageFromWebsite,
+    };
      return api;
+
+     function addPageToWebsite(websiteId, pageId) {
+         return websiteModel.findOne({_id : websiteId})
+             .then(function(website) {
+                 website.pages.push(pageId);
+                 return website.save();
+             });
+
+     }
 
     function createWebsiteForUser(userId, website) {
         // reference back to parent is the username you gave me
         // stored in the scehma as a userId which is objectId
         website._user = userId;
-        return websiteModel
-            .create(website)
+        return websiteModel.create(website)
             .then(function(website) {
                 return userModel // return as a promise
                     .addWebsite(userId, website._id)
@@ -46,7 +54,7 @@ module.exports = function(mongoose, userModel) {
             _id : websiteId
         }, {
             name : website.name,
-            description : website.description
+            desc : website.desc
         });
 
     }

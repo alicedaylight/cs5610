@@ -26,6 +26,8 @@ module.exports = function(app, model) {
                     res.json(website);
                 },
                 function(error){
+                    console.log("error inside of createEntityWebsite");
+
                     res.sendStatus(400).send(error);
                 }
             );

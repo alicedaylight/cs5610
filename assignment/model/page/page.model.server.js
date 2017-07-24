@@ -1,9 +1,13 @@
 module.exports = function(mongoose, websiteModel){
+// module.exports = function(mongoose, userModel){
+
     var pageSchema = require('./page.schema.server.js')(mongoose);
     var pageModel = mongoose.model('Page', pageSchema);
 
+
     var api = {
-        'createPage' : createPage,
+        'createPageForUser' : createPageForUser,
+        // 'createPage' : createPage,
         'findAllPagesForWebsite' : findAllPagesForWebsite,
         'findPageById' : findPageById,
         'updatePage' : updatePage,
@@ -13,16 +17,24 @@ module.exports = function(mongoose, websiteModel){
     return api;
 
 
-    function createPage(websiteId, page) {
+    function createPageForUser(websiteId, page) {
         page._website = websiteId;
-        return pageModel
-            .create(page)
+        return pageModel.create(page)
             .then(function(page) {
-                return websiteModel
-                    .addPage(websiteId, page._id)
-                // add page function doesn't exist
-            })
+                return websiteModel.addPageToWebsite(websiteId, page._id)
+            });
     }
+
+    // function createPage(websiteId, page) {
+    //     page._website = websiteId;
+    //     return pageModel
+    //         .create(page)
+    //         .then(function(page) {
+    //             return websiteModel
+    //                 .addPage(websiteId, page._id)
+    //             // add page function doesn't exist
+    //         });
+    // }
 
     function findAllPagesForWebsite(websiteId) {
         return pageModel
