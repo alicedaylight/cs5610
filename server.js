@@ -21,7 +21,7 @@ app.use(express.static(__dirname+'/public/assignment'));
 // remove 'public' so that the static will start from cs5610 directory and not public
 
 
-var connectionString = 'mongodb://localhost:27017/cs5610Webdev';
+var connectionString = 'mongodb://localhost:27017/cs5610';
 mongoose.connect(connectionString);
 
 
