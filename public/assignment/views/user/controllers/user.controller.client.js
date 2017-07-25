@@ -29,6 +29,7 @@
         var vm = this;
         vm.register = register;
 
+
         function register(username, password, vpassword) {
             if (username === undefined || username === null || username === "" || password === undefined || password === "") {
                 vm.error = "Username and Passwords cannot be empty.";
@@ -39,25 +40,37 @@
                 return;
             }
 
-            // var user = UserService.findUserByUsername(username);
-            // makes things happen in synchronaziy
-            // allows you to write something that would otherwise nested
-            // we can write something that would otherwise be asynchronize (no particular order), we can write
-            // it as if it was in sychrnosize (one after the other in a sequence)
-            // write several asynch calls as if they were synchronized
-            var newUser = {
-                username: username,
-                password: password
-            };
             UserService
-                .createUser(newUser)
-                // .findUserByUsername(username)
-                .then(function (user) {
-                    $location.url('/user/' + user._id);
-                })
-                .catch(function (err) {
-                    vm.error = "Username taken.";
+                .findUserByUsername(username)
+                .then(function(user) {
+                    vm.error = "Username already exists";
+                }, function (error) {
+                    var newUser = {
+                        username : username,
+                        password : password
+                    };
+                    UserService
+                        .createUser(newUser)
+                        .then(function(user) {
+                            $location.url("/user/" + user._id);
+                        }, function(error) {
+                            console.log(error);
+                        });
                 });
+
+            // var newUser = {
+            //     username: username,
+            //     password: password
+            // };
+            // UserService
+            //     .createUser(newUser)
+            //     // .findUserByUsername(username)
+            //     .then(function (user) {
+            //         $location.url('/user/' + user._id);
+            //     })
+            //     .catch(function (err) {
+            //         vm.error = "Username taken.";
+            //     });
         }
     }
 

@@ -1,6 +1,3 @@
-/**
- * Created by xoxoumop3pisdn on 7/13/17.
- */
 (function () {
     angular
         .module("wbdvDirectives", [])
@@ -8,37 +5,37 @@
 
     function makeSortable() {
 
-        function linker(scope, element, attrb) {
+        function linker(scope, element, attributes, $routeParams) {
+            var pid = $routeParams.pid;
             var start = -1;
             var end = -1;
-            $(element)
-                .sortable({
-                    start: function(event, ui) {
-                        start = $(ui.item).index();
-                    },
-                    stop: function (event, ui) {
-                        end = $(ui.item).index();
-                        //console.log(start, end);
-
-                        if(end >= start){
-                            end = end + 1;
-                        }
-                        //console.log(start, end);
-                        scope.callback({
-                            start : start,
-                            end : end
-                        });
-                    }
-                });
+            $(element).sortable({
+                start: function (event, ui) {
+                    start = ($(ui.item).index());
+                },
+                stop: function (event, ui) {
+                    end = ($(ui.item).index());
+                    scope.makeSortableController.sortWidgets(start, end, pageId);
+                }
+            });
         }
 
-        var directive = {
-            restrict: 'ACE',
-            scope : {
-                callback : '&'
-            },
-            link : linker,
-        };
-        return directive;
+        return {
+            scope: {},
+            link: linker,
+            controller: makeSortableController,
+            controllerAs: 'makeSortableController'
+        }
+
     }
+
+    function makeSortableController(WidgetService) {
+        var vm = this;
+        vm.sortWidgets = sortWidgets;
+
+        function sortWidgets(start, end, pageId) {
+            WidgetService.sortWidgets(start, end, pageId);
+        }
+    }
+
 })();

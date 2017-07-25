@@ -26,23 +26,41 @@
         // // vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
     }
 
+
     function NewPageController($routeParams, PageService, $location) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
-
         vm.newPage = newPage;
 
+        init();
+
+        // need to update the page-new-view to add a ng-repeat for page in model.pages
+        function init() {
+            PageService
+                .findAllPagesForWebsite(vm.wid)
+                .then(function(pages) {
+                    vm.pages = pages;
+                });
+        }
+
         function newPage(name, description) {
+            if(name === null || name === undefined || name === " ") {
+                vm.error = "Page name cannot be empty";
+                $timeout(function() {
+                    vm.error = null;
+                }, 3500);
+                return;
+            }
             console.log("new Page Controller");
-                        var newPage = {
-                            name: name,
-                            description : description
-                        };
-                        return PageService
-                            .createPage(vm.uid, newPage)
-                            .then(function (page) {
+            var newPage = {
+                name: name,
+                description : description
+            };
+            PageService
+                .createPage(vm.wid, newPage)
+                .then(function (page) {
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page");
                 });
         }
@@ -73,8 +91,15 @@
         }
 
         function updatePage(page) {
+            if(page.name === null || page.name === undefined || page.name === ""){
+                vm.error = "Page name cannot be empty";
+                $timeout(function(){
+                    vm.error = null;
+                }, 3500);
+                return;
+            }
+
             PageService
-            // or vm._id
                 .updatePage(page._id, page)
                 .then(function() {
                     $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/");
@@ -88,8 +113,9 @@
 
         function deletePage(pageId) {
             PageService
-                .deletePage(pageId)
+                .deletePageFromWebsite(vm.wid, vm.pid)
                 .then(function() {
+                    console.log("aaa");
                     $location.url("/user/" +vm.uid+ "/website/" + vm.wid + "/page");
                 }, function() {
                     vm.error = "Unable to delete page";

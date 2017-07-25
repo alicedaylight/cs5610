@@ -22,7 +22,7 @@
             }
     }
 
-    function NewWebsiteController($routeParams, WebsiteService, $location) {
+    function NewWebsiteController($routeParams, WebsiteService, $location) {2
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -48,6 +48,9 @@
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
+        // view is left hand
+        // view model.pid
+        // config is right side from routeParam
 
         //event handler that listens for an incoming click
         vm.updateWebsite = updateWebsite;
@@ -71,8 +74,6 @@
 
         function updateWebsite(website) {
             WebsiteService
-            // or vm.wid
-            //     .updateWebsite(website._id, website)
                 .updateWebsite(website._id, website)
 
                 .then(function(website) {
@@ -83,8 +84,7 @@
 
         function deleteWebsite(websiteId) {
             WebsiteService
-                // .deleteWebsite(vm.uid, websiteId)
-                .deleteWebsite(websiteId)
+                .deleteWebsiteFromUser(vm.uid, vm.wid)
                 .then(function() {
                     $location.url("/user/" +vm.uid+"/website");
                 }, function () {

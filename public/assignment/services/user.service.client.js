@@ -15,22 +15,9 @@
         };
         return services;
 
-        function getNextId() {
-            function getMaxId(maxId, currentId) {
-                var current = parseInt(currentId._id);
-                if (maxId > current) {
-                    return maxId;
-                } else {
-                    return current + 1;
-                }
-            }
-            return users.reduce(getMaxId, 0).toString();
-        }
 
         function createUser(user) {
             var url = "/api/user/";
-            // create new instance using post()
-            // post(urlWhereSendingData,actualDataEncodedInBody)
             return $http.post(url, user)
                 .then(function (response) {
                     return response.data;
@@ -40,7 +27,6 @@
 
         function findUserById(userId) {
             var url = "/api/user/"+userId;
-
             return $http.get(url)
                 .then(function(response) {
                     var user = response.data;

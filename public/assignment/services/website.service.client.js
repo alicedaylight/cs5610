@@ -22,7 +22,8 @@
             'findWebsiteById': findWebsiteById,
             'updateWebsite': updateWebsite,
             'deleteWebsite': deleteWebsite,
-            'deleteWebsitesByUser': deleteWebsitesByUser
+            'deleteWebsitesByUser': deleteWebsitesByUser,
+            'deleteWebsiteFromUser': deleteWebsiteFromUser
         };
         return services;
 
@@ -95,13 +96,20 @@
         }
 
 
+        function deleteWebsiteFromUser(userId, websiteId) {
+            var url = "/api/user/" + userId + "/website/" + websiteId;
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
+        }
+
         function deleteWebsitesByUser(userId) {
-            for (w in websites) {
-                var website = websites[w];
-                if (website.developerId === userId) {
-                    deleteWebsite(website._id);
-                }
-            }
+            var url = "/api/user/" + userId + "/website";
+            return $http.delete(url)
+                .then(function (response) {
+                    return response.data;
+                });
         }
     }
 })();
