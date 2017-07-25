@@ -1,28 +1,27 @@
-module.exports = function(mongoose, pageModel) {
-    var widgetSchema = require('./widget.schema.server.js')(mongoose);
-    var widgetModel = mongoose.model('Widget', widgetSchema);
+var mongoose = require('mongoose');
+var widgetSchema = require('./widget.schema.server');
+var widgetModel = mongoose.model('Widget', widgetSchema);
+var pageModel = require('../widget/widget.model.server');
 
-    var api = {
-     'createWidget': createWidget,
-     'findAllWidgetsForPage': findAllWidgetsForPage,
-     'findWidgetById': findWidgetById,
-     'updateWidget': updateWidget,
-     'deleteWidget': deleteWidget,
-     'reorderWidget': reorderWidget
-     };
+module.exports = widgetModel;
 
-     return api;
+widgetModel.createWidget = createWidget;
+widgetModel.findAllWidgetsForPage = findAllWidgetsForPage;
+widgetModel.findWidgetById = findWidgetById;
+widgetModel.updateWidget = updateWidget;
+widgetModel.deleteWidgetFromPage = deleteWidgetFromPage;
+widgetModel.deleteWidgetsByPage = deleteWidgetsByPage;
+
 
      function createWidget(pageId, widget) {
          widget._page = pageId;
          return widgetModel
              .create(widget)
              .then(function(widget) {
-                 return pageModel
-                     .addWidget(pageId, widget._id)
-                 // addWidget function doesn't exist
+                 pageModel
+                     .addWidget(pageId, widget._id);
+                 return widget;
              })
-
      }
 
 
@@ -34,28 +33,36 @@ module.exports = function(mongoose, pageModel) {
      }
 
     function findWidgetById(widgetId) {
-         return widgetModel.findOne({_id : widgetId})
+         // return widgetModel.findOne({_id : widgetId})
+        return widgetModel
+            .findById(widgetId);
      }
 
      function updateWidget(widgetId, widget) {
-         return widgetModel.update({
-             _id : widgetId
-         }, {
-             name : widget.name,
-             description : widget.description,
-             text : widget.text,
-             type : widege.type
-         });
+         delete widget._page;
+         return widgetModel
+             .update({_id : widgetId}, {$set : widget});
+         // return widgetModel.update({
+         //     _id : widgetId
+         // }, {
+         //     name : widget.name,
+         //     description : widget.description,
+         //     text : widget.text,
+         //     type : widege.type
+         // });
      }
 
+function deleteWidgetFromPage(pageId, widgetId) {
+    return widgetModel
+        .remove({_id: widgetId})
+        .then(function (status) {
+            return pageModel
+                .deleteWidget(pageId, widgetId);
+        });
+}
 
-     function deleteWidget(widgetId) {
-         return widgetModel.remove({
-             _id : widgetId
-         });
-     }
+function deleteWidgetsByPage(pageId) {
+    return widgetModel
+        .remove({_page: pageId});
+}
 
-     function reorderWidget(pageId, start, end) {
-
-     }
-};

@@ -1,17 +1,47 @@
-module.exports = function(mongoose, userModel) {
-    var websiteSchema = require('./website.schema.server.js')(mongoose);
-    var websiteModel = mongoose.model('Website', websiteSchema);
+var mongoose = require("mongoose");
+var websiteSchema = require('./website.schema.server');
+var websiteModel = mongoose.model('Website', websiteSchema);
+var userModel = require('../user/user.model.server');
 
-    var api = {
-     'addPageToWebsite' : addPageToWebsite,
-     'deleteWebsite' : deleteWebsite,
-     'createWebsiteForUser': createWebsiteForUser,
-     'findAllWebsitesForUser': findAllWebsitesForUser,
-     'findWebsiteById': findWebsiteById,
-     'updateWebsite': updateWebsite
-        // 'removePageFromWebsite': removePageFromWebsite,
-    };
-     return api;
+module.exports = websiteModel;
+
+websiteModel.addPageToWebsite = addPageToWebsite;
+websiteModel.deleteWebsite = deleteWebsite;
+websiteModel.createWebsiteForUser = createWebsiteForUser;
+websiteModel.findAllWebsitesForUser = findAllWebsitesForUser;
+websiteModel.findWebsiteById = findWebsiteById;
+websiteModel.updateWebsite = updateWebsite;
+
+websiteModel.deleteWebsiteFromUser = deleteWebsiteFromUser;
+websiteModel.deleteWebsitesByUser = deleteWebsitesByUser;
+websiteModel.deletePage = deletePage;
+
+
+
+function deletePage(websiteId, pageId) {
+    return websiteModel
+        .findWebsiteById(websiteId)
+        .then(function (website) {
+            var index = website.pages.indexOf(pageId);
+            website.pages.splice(index, 1);
+            return website.save();
+        });
+}
+
+function deleteWebsiteFromUser(userId, websiteId) {
+    return websiteModel
+        .remove({_id: websiteId})
+        .then(function (status) {
+            return userModel
+                .deleteWebsite(userId, websiteId);
+        });
+}
+
+function deleteWebsitesByUser(userId) {
+    return websiteModel
+        .remove({_user: userId});
+}
+
 
      function addPageToWebsite(websiteId, pageId) {
          return websiteModel.findOne({_id : websiteId})
@@ -28,6 +58,7 @@ module.exports = function(mongoose, userModel) {
         website._user = userId;
         return websiteModel.create(website)
             .then(function(website) {
+                console.log("userModel", userModel.addWebsite);
                 return userModel // return as a promise
                     .addWebsite(userId, website._id)
             });
@@ -66,17 +97,4 @@ module.exports = function(mongoose, userModel) {
     }
 
 
-};
 
-
-// function deleteWebsiteFromUser(userId, websiteId) {
-//     return websiteModel
-//         .remove({_id: websiteId})
-//         .then(function(status) {
-//             return websiteModel
-//                 .deleteWebsite(userId, websiteId);
-//         })
-// }
-//
-// module.exports = websiteModel;
-//

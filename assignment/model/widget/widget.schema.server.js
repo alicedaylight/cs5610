@@ -1,39 +1,27 @@
-module.exports = function(mongoose){
-    var Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
-    var widgetSchema = new Schema({
-        _page : {type : Schema.Types.ObjectId, ref : 'Page'},
-        widgetType : {
-            type : String,
-            uppercase : true,
-            enum : ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'TEXT']
-        },
+var widgetSchema = mongoose.Schema({
+        _page : {type : mongoose.Schema.Types.ObjectId, ref : 'Page'},
+        // widgetType : {
+        //     type : String,
+        //     uppercase : true,
+        //     enum : ['HEADER', 'IMAGE', 'YOUTUBE', 'HTML', 'TEXT']
+        // },
+        widgetType : String,
         name : String,
         text : String,
         placeholder : String,
         description : String,
         url : String,
-        width : {
-            type : Number,
-            default : 100,
-            max : 100,
-            min : 0
-        },
-        height : Number,
+        width : String,
+        height : String,
         rows : Number,
-        size : {
-            type : Number,
-            default : 1
-        },
+        size : Number,
         class : String,
         icon : String,
         deletable : {type : Boolean, default : true},
         formatted : Boolean,
-        dateCreated : {
-            type : Date,
-            default: Date.now
-        }
+        dateCreated : { type : Date, default: Date.now()}
     }, {collection : 'widget'});
 
-    return widgetSchema;
-};
+module.exports = widgetSchema;

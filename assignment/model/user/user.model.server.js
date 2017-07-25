@@ -1,91 +1,69 @@
-module.exports = function(mongoose){
-    var userSchema = require('./user.schema.server.js')(mongoose);
-    var userModel = mongoose.model('User', userSchema);
+var mongoose = require("mongoose");
+var userSchema = require('./user.schema.server.js');
+var userModel = mongoose.model('User', userSchema);
 
-    var api = {
-        'createUser' : createUser,
-        'findUserById' : findUserById,
-        'findUserByUsername' : findUserByUsername,
-        'findUserByCredentials' : findUserByCredentials,
-        'updateUser' : updateUser,
-        'removeWebsiteFromUser' : removeWebsiteFromUser,
-        'deleteUser' : deleteUser
-    };
+module.exports = userModel;
 
-    return api;
+userModel.createUser = createUser;
+userModel.findUserById = findUserById;
+userModel.findAllUsers = findAllUsers;
+userModel.findUserByUsername = findUserByUsername;
+userModel.findUserByCredentials = findUserByCredentials;
+userModel.updateUser = updateUser;
+userModel.deleteUser = deleteUser;
+userModel.addWebsite = addWebsite;
+userModel.deleteWebsite = deleteWebsite;
 
-    // Function Definition Section
+module.exports = userModel;
 
-    function createUser(user){
-        var newUser = {
-            username : user.username,
-            password : user.password,
-            websites : []
-        };
+function createUser(user) {
+    return userModel.create(user);
+}
 
-        if(user.firstName){
-            newUser.firstName = user.firstName;
-        }
-        if(user.lastName){
-            newUser.lastName = user.lastName;
-        }
-        if(user.email){
-            newUser.email = user.email;
-        }
-        if(user.phone){
-            newUser.phone = user.phone;
-        }
+function findUserById(userId) {
+    return userModel.findById(userId);
+}
 
-        return userModel.create(newUser);
-    }
+function findAllUsers() {
+    return userModel.find();
+}
 
-    function findUserById(userId){
-        return userModel.findById(userId);
-        // findById doesn't exist
-    }
+function findUserByUsername(username) {
+    return userModel.findOne({username: username});
+}
 
-    function findUserByUsername(uname){
-        return userModel.findOne({username : uname})
-    }
+function findUserByCredentials(username, password) {
+    return userModel.findOne({username: username, password: password});
+}
 
+function updateUser(userId, newUser) {
+    delete  newUser.username;
+    delete  newUser.password;
+    return userModel.update({_id: userId}, {$set: newUser});
+}
 
-    function findUserByCredentials(username, password){
-        return userModel.findOne({
-            username : username,
-            password : password
+function deleteUser(userId) {
+
+    return userModel
+        .remove({_id: userId});
+}
+
+function addWebsite(userId, websiteId) {
+    return userModel
+        .findById(userId)
+        .then(function (user) {
+            user.websites.push(websiteId);
+            return user.save();
         });
-    }
+}
 
-    function updateUser(userId, user){
-        return userModel.update({
-            _id : userId
-        }, {
-            firstName : user.firstName,
-            lastName : user.lastName,
-            email : user.email,
-            phone : user.phone
+function deleteWebsite(userId, websiteId) {
+    return userModel
+        .findById(userId)
+        .then(function (user) {
+            var index = user.websites.indexOf(websiteId);
+            user.websites.splice(index, 1);
+            return user.save();
         });
-    }
-
-    function removeWebsiteFromUser(userId, websiteId){
-        // db.user.update({_id : ObjectId("583cf3287ac013080c4adee5")}, {$push : { "websites" : ObjectId("583cf43693b914082152cc3c")}})
-        userModel
-            .findById(userId)
-            .then(
-                function(user){
-                    user.websites.pull(websiteId);
-                    user.save();
-                },
-                function(error){
-                    console.log(error);
-                }
-            );
-    }
-
-    function deleteUser(userId){
-        return userModel.remove({
-            _id : userId
-        });
-    }
-};
+}
 

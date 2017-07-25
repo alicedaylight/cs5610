@@ -1,14 +1,11 @@
-module.exports = function(mongoose){
-    var pageSchema = require("../page/page.schema.server.js")(mongoose);
+var mongoose = require('mongoose');
 
-    var Schema = mongoose.Schema;
-
-    var websiteSchema = new Schema({
-        _user : {type : Schema.Types.ObjectId, ref : 'User'},
+var websiteSchema = mongoose.Schema({
+        _user : {type : mongoose.Schema.Types.ObjectId, ref : 'User'},
         name : {type : String, required : true},
         desc : String,
         pages : [{
-            type : Schema.Types.ObjectId,
+            type : mongoose.Schema.Types.ObjectId,
             ref : 'Page'
         }],
         dateCreated : {
@@ -17,5 +14,4 @@ module.exports = function(mongoose){
         }
     }, {collection : 'website'});
 
-    return websiteSchema;
-};
+module.exports = websiteSchema;
