@@ -24,64 +24,58 @@ module.exports = function (app) {
                 widgets.splice(end, 0, widgets.splice(start, 1)[0]);
             });
     }
+
+
     function uploadImage(req, res) {
-        var widgetId      = req.body.wgid;
+        var widgetId      = req.body.widgetId;
         var width         = req.body.width;
+        var name          = req.body.name;
         var myFile        = req.file;
+        var text          = req.body.text;
+        var userId = req.body.userId;
+        var websiteId = req.body.websiteId;
+        var pageId = req.body.pageId;
 
-        var uploadDetails = {
-            originalname : myFile.originalname,
-            filename : myFile.filename,
-            fullpath : myFile.path,
-            destination : myFile.destination,
-            size : myFile.size,
-            mimetype : myFile.mimetype
-        };
-        res.send(uploadDetails);
+        var originalname  = myFile.originalname; // file name on user's computer
+        var filename      = myFile.filename;     // new file name in upload folder
+        var path          = myFile.path;         // full path of uploaded file
+        var destination   = myFile.destination;  // folder where file is saved to
+        var size          = myFile.size;
+        var mimetype      = myFile.mimetype;
+
+
+        if (widgetId === null || widgetId === undefined || widgetId === "") {
+            var widget = req.body;
+
+            var newImage = {
+                name : name,
+                text : text,
+                widgetType: 'IMAGE',
+                width: width,
+                url: '../uploads/'+filename
+            };
+
+            widgetModel
+                .createWidget(pageId, newImage)
+                .then(function(widget) {
+                    var callbackUrl   = "/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget";
+                    res.redirect(callbackUrl);
+                });
+
+            return;
+        }
+
+
+        var url = "../uploads/" + filename;
+        widgetModel
+            .findWidgetById(widgetId)
+            .then(function(widget) {
+               widget.url = url;
+               widget.save();
+               var callbackUrl   = "/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget";
+               res.redirect(callbackUrl);
+            });
     }
-
-    // function uploadImage(req, res) {
-    //     var widgetId      = req.body.widgetId;
-    //     var width         = req.body.width;
-    //     var name          = req.body.name;
-    //     var myFile        = req.file;
-    //     var userId = req.body.userId;
-    //     var websiteId = req.body.websiteId;
-    //     var pageId = req.body.pageId;
-    //
-    //     var originalname  = myFile.originalname; // file name on user's computer
-    //     var filename      = myFile.filename;     // new file name in upload folder
-    //     var path          = myFile.path;         // full path of uploaded file
-    //     var destination   = myFile.destination;  // folder where file is saved to
-    //     var size          = myFile.size;
-    //     var mimetype      = myFile.mimetype;
-    //
-    //     if(widgetId) { //image edit
-    //         for (var w in widgets) {
-    //             if (parseInt(widgets[w]._id) === parseInt(widgetId)) {
-    //                 widgets[w].url = './uploads/'+filename;
-    //                 break;
-    //             }
-    //         }
-    //         var callbackUrl   = "/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget";
-    //
-    //         res.redirect(callbackUrl);
-    //     } else { //create new image
-    //         var newImageId = new Date().getTime() + "";
-    //         var newImage = {
-    //             _id: newImageId,
-    //             widgetType: 'IMAGE',
-    //             pageId: pageId,
-    //             width: width,
-    //             url: './uploads/'+filename
-    //         };
-    //         widgets.push(newImage);
-    //         var callbackUrl   = "/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+newImageId;
-    //
-    //         res.redirect(callbackUrl);
-    //
-    //     }
-    // }
 
     function createWidget(req, res){
         var pid = req.params.pid;
@@ -89,7 +83,7 @@ module.exports = function (app) {
         widgetModel
             .createWidget(pid, widget)
             .then(function(widget) {
-                res.send(widget);
+                res.sendStatus(200);
             });
     }
 

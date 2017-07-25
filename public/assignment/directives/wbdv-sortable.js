@@ -3,9 +3,9 @@
         .module("wbdvDirectives", [])
         .directive("wbdvSortable", makeSortable);
 
-    function makeSortable() {
+    function makeSortable($routeParams) {
 
-        function linker(scope, element, attributes, $routeParams) {
+        function linker(scope, element, attributes) {
             var pid = $routeParams.pid;
             var start = -1;
             var end = -1;

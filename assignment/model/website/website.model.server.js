@@ -58,7 +58,6 @@ function deleteWebsitesByUser(userId) {
         website._user = userId;
         return websiteModel.create(website)
             .then(function(website) {
-                console.log("userModel", userModel.addWebsite);
                 return userModel // return as a promise
                     .addWebsite(userId, website._id)
             });

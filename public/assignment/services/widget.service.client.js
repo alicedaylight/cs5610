@@ -22,6 +22,8 @@
             var url = "/api/widget/" + widgetId;
             return $http.get(url)
                 .then(function (response) {
+                    // console.log("********************")
+                    // console.log(response.data);
                     return response.data;
                 });
         }
@@ -97,17 +99,7 @@
                     return response.data;
                 });
         }
-        //
-        // // previous function is checking against _id
-        // // this function is also checking against the same _id
-        // function findWidgetsById(widgetId) {
-        //     var url = '/api/widget/' +widgetId;
-        //
-        //     return $http.get(url)
-        //         .then (function(response) {
-        //             return response.data;
-        //         });
-        // }
+
 
         function updateWidget(widgetId, widget) {
             var url = '/api/widget/' +widgetId;
