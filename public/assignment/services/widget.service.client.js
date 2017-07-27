@@ -29,7 +29,7 @@
         }
 
         function sortWidgets(start, end, pageId) {
-            var url = "/page/" + pageId + "/widget?initial=index1&final=index2";
+            var url = "/api/page/" + pageId + "/widget?initial=index1&final=index2";
             url = url.replace("index1", start)
                 .replace("index2", end);
             $http.put(url);

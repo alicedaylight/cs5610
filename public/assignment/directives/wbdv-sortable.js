@@ -15,7 +15,7 @@
                 },
                 stop: function (event, ui) {
                     end = ($(ui.item).index());
-                    scope.makeSortableController.sortWidgets(start, end, pageId);
+                    scope.makeSortableController.sortWidgets(start, end, pid);
                 }
             });
         }

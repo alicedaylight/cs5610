@@ -22,6 +22,8 @@ module.exports = function (app) {
             .findAllWidgetsForPage(pid)
             .then(function(widgets) {
                 widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+                console.log("widgets" + widgets);
+                res.sendStatus(200);
             });
     }
 

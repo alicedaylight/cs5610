@@ -3,14 +3,31 @@ var express = require('express');
 //initialize app as an express application
 var app = express();
 
+// var cookies = require('cookies');
+// var sessions = require('sessions');
+
+
+var cookieParser = require('cookie-parser');
+var session      = require('express-session');
 var passport = require('passport');
-var cookies = require('cookies');
-var sessions = require('sessions');
 var bodyParser = require('body-parser');
-// need specific parses that knows how to parse the body and extract and convert to correct representation
-//
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// hashtable, instantiates cookie session
+// depends on the user, will call a different hashtable
+app.use(session({
+    secret: "this is the secret",
+    resave : true,
+    saveUninitialized : true
+}));
+app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 var mongoose = require('mongoose');
 
 var routeServices = require('./assignment/app');

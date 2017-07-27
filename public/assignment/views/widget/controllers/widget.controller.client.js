@@ -27,6 +27,7 @@
         vm.clean = clean;
 
         function clean(url) {
+            console.log($sce.trustAsResourceUrl);
             return $sce.trustAsResourceUrl(url);
         }
 
@@ -71,15 +72,22 @@
                     return;
                 }
             }
+
+            // inside heading view model.widgetName
             var newWidget = {
                 name: vm.widgetName,
                 text: vm.widgetText,
                 widgetType: vm.widgetType,
                 size: vm.widgetSize,
                 width: vm.widgetWidth,
-                url: vm.widgetUrl
+                url: vm.widgetUrl,
+
+                rows : vm.widgetRows,
+                placeholder : vm.widgetPlaceholder,
+                formatted : vm.widgetFormatted
             };
 
+            console.log(newWidget);
             WidgetService
                 .createWidget(vm.pid, newWidget)
                 .then(
@@ -126,6 +134,11 @@
                     } else if (vm.widget.widgetType === "HTML") {
                         vm.widgetName = vm.widget.name;
                         vm.widgetText = vm.widget.text;
+                    } else if (vm.widget.widgetType === "TEXT") {
+                        vm.widgetText = vm.widget.text;
+                        vm.widgetRows = vm.widget.rows;
+                        vm.widgetPlaceholder = vm.widget.placeholder;
+                        vm.widgetFormatted = vm.widget.formatted;
                     }
                 });
 
@@ -133,11 +146,20 @@
 
 
         function updateWidget() {
-            var updatedWidget = {
-                name: vm.widget.name,
-                text: vm.widget.text,
-                size: vm.widget.size
-            };
+                var updatedWidget = {
+                    // inside heading edit is model.widget.name
+                    name: vm.widget.name,
+                    text: vm.widget.text,
+                    size: vm.widget.size,
+
+                    widgetType: vm.widgetType,
+                    width: vm.widget.width,
+                    rows : vm.widget.rows,
+                    placeholder : vm.widget.placeholder,
+                    formatted : vm.widget.formatted,
+                    url: vm.widget.url
+                };
+
 
             console.log(updatedWidget);
 

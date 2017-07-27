@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <a class="cl-text-white navbar-brand cl-text-bold" href="#!/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget/new">
@@ -26,13 +27,13 @@
            class="form-control"/>
 
     Text
-    <input ng-model="model.widget.text" class="form-control"/>
+    <input ng-model="model.widgetText" class="form-control"/>
     Rows
-    <input ng-model="model.widget.rows" class="form-control" type="number"/>
+    <input ng-model="model.widgetRows" class="form-control" type="number"/>
     Placeholder
-    <input ng-model="model.widget.placeholder" class="form-control"/>
+    <input ng-model="model.widgetPlaceholder" class="form-control"/>
     Formatted
-    <input ng-model="model.widget.formatted" type="checkbox"/>
+    <input ng-model="model.widgetFormatted" type="checkbox"/>
 
 
     <a ng-click="model.createWidget()"
