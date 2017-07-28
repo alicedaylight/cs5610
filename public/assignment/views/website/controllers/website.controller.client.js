@@ -5,41 +5,41 @@
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService, currentUser) {
+    function WebsiteListController(WebsiteService, currentUser) {
         var vm = this;
 
-        // vm.uid = $routeParams.uid;
-        // vm.wid = $routeParams.wid;
-        // vm.pid = $routeParams.pid;
         vm.uid = currentUser._id;
 
 
-            WebsiteService
-                .findWebsitesByUser(vm.uid)
-                .then(renderWebsites);
+        WebsiteService
+            .findWebsitesByUser(vm.uid)
+            .then(renderWebsites);
 
-            function renderWebsites(websites) {
-                vm.websites = websites;
-            }
+        function renderWebsites(websites) {
+            vm.websites = websites;
+        }
     }
 
-    function NewWebsiteController($routeParams, WebsiteService, $location) {
+    function NewWebsiteController(WebsiteService, $location, currentUser) {
         var vm = this;
-        vm.uid = $routeParams.uid;
-        vm.wid = $routeParams.wid;
-        vm.pid = $routeParams.pid;
+        vm.uid = currentUser._id;
+        // vm.wid = $routeParams.wid;
+        // vm.pid = $routeParams.pid;
         vm.newWebsite = newWebsite;
 
         function newWebsite(name, description) {
-                        var newWebsite = {
-                            name: name,
-                            desc: description
-
-                        };
-                        return WebsiteService
-                            .createWebsite(vm.uid, newWebsite)
-                            .then (function (website) {
-                    $location.url("/user/" + vm.uid + "/website");
+            if (name === undefined || name === null || name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
+            var newWebsite = {
+                name: name,
+                desc: description
+            };
+            return WebsiteService
+                .createWebsite(vm.uid, newWebsite)
+                .then (function (website) {
+                    $location.url("/website");
                 });
         }
     }
@@ -74,11 +74,15 @@
         }
 
         function updateWebsite(website) {
+            if (website.name === undefined || website.name === null || website.name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
             WebsiteService
                 .updateWebsite(website._id, website)
 
                 .then(function(website) {
-                    $location.url("/user/" + vm.uid + "/website");
+                    $location.url("/website");
                 });
 
         }

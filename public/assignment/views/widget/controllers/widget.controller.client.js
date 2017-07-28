@@ -9,9 +9,9 @@
         .controller("CreateWidgetController", CreateWidgetController)
         .controller("EditWidgetController", EditWidgetController);
 
-    function WidgetListController($routeParams, WidgetService, $sce) {
+    function WidgetListController($routeParams, WidgetService, $sce, currentUser) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = currentUser._id;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
@@ -35,9 +35,9 @@
 
 
     // something might be wrong with this controller
-    function NewWidgetController($routeParams, WidgetService) {
+    function NewWidgetController($routeParams, WidgetService, currentUser) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = currentUser._id;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
@@ -45,13 +45,19 @@
         vm.createWidget = createWidget;
 
         function createWidget(widget) {
-            WidgetService.createWidget(widget);
+            if (widget.name === undefined || widget.name === null || widget.name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
+
+            WidgetService
+                .createWidget(widget);
         }
     }
 
-    function CreateWidgetController($routeParams, $location, WidgetService) {
+    function CreateWidgetController($routeParams, $location, WidgetService, currentUser) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = currentUser._id;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.widgetType = $routeParams.wtype;
@@ -60,6 +66,11 @@
 
 
         function createWidget() {
+            if (widget.name === undefined || widget.name === null || widget.name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
+
             if (vm.widgetType === 'IMAGE' || vm.widgetType === 'YOUTUBE') {
                 if (vm.widgetUrl === null || vm.widgetUrl === undefined) {
                     vm.createError = "Url is required for Image/Youtube";
@@ -93,17 +104,17 @@
                 .then(
                     function(widget) {
                         vm.message = "Sucessfully created new widget!";
-                        $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                        $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                     }, function (error) {
                         console.log(error);
                     });
         }
     }
 
-    function EditWidgetController($routeParams, $location, WidgetService, $timeout) {
+    function EditWidgetController($routeParams, $location, WidgetService, $timeout, currentUser) {
         console.log("Edit Widget Controller");
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = currentUser._id;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         vm.wgid = $routeParams.wgid;
@@ -146,27 +157,29 @@
 
 
         function updateWidget() {
-                var updatedWidget = {
-                    // inside heading edit is model.widget.name
-                    name: vm.widget.name,
-                    text: vm.widget.text,
-                    size: vm.widget.size,
+            if (widget.name === undefined || widget.name === null || widget.name === "") {
+                vm.error = "Name cannot be empty.";
+                return;
+            }
+            var updatedWidget = {
+                // inside heading edit is model.widget.name
+                name: vm.widget.name,
+                text: vm.widget.text,
+                size: vm.widget.size,
 
-                    widgetType: vm.widgetType,
-                    width: vm.widget.width,
-                    rows : vm.widget.rows,
-                    placeholder : vm.widget.placeholder,
-                    formatted : vm.widget.formatted,
-                    url: vm.widget.url
-                };
+                widgetType: vm.widgetType,
+                width: vm.widget.width,
+                rows : vm.widget.rows,
+                placeholder : vm.widget.placeholder,
+                formatted : vm.widget.formatted,
+                url: vm.widget.url
+            };
 
-
-            console.log(updatedWidget);
 
             WidgetService
                 .updateWidget(vm.wgid, updatedWidget)
                 .then(function() {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                    $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget");
                 }, function() {
                     vm.error = "Unable to update widget!"
                 });
@@ -177,7 +190,7 @@
             WidgetService
                 .deleteWidgetFromPage(vm.pid, vm.wgid)
                 .then(function() {
-                    $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
+                    $location.url("/website/" + vm.wid + "/page/" + vm.pid + "/widget");
 
                 }, function() {
                     vm.error = "Unable to delete widget!"

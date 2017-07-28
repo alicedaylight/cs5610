@@ -72,10 +72,10 @@ module.exports = function (app) {
         widgetModel
             .findWidgetById(widgetId)
             .then(function(widget) {
-               widget.url = url;
-               widget.save();
-               var callbackUrl   = "/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget";
-               res.redirect(callbackUrl);
+                widget.url = url;
+                widget.save();
+                var callbackUrl   = "/#!/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget";
+                res.redirect(callbackUrl);
             });
     }
 
@@ -99,7 +99,7 @@ module.exports = function (app) {
                 },
                 function(error){
                     res.send(404);
-            });
+                });
     }
 
     function findWidgetById(req, res) {
@@ -115,11 +115,11 @@ module.exports = function (app) {
     function updateWidget(req, res){
         var wgid = req.params.wgid;
         var widget = req.body;
-            widgetModel
+        widgetModel
             .updateWidget(wgid, widget)
             .then(function (status){
-                    res.send(status);
-                });
+                res.send(status);
+            });
     }
 
     function deleteWidgetFromPage(req, res) {

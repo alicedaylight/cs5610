@@ -11,7 +11,7 @@ module.exports = function(app) {
     function createWebsite(req, res){
         var uid = req.params.uid;
         var website = req.body;
-            websiteModel
+        websiteModel
             .createWebsiteForUser(uid, website)
             .then(
                 function(website){
@@ -27,7 +27,7 @@ module.exports = function(app) {
 
     function findAllWebsitesForUser(req, res){
         var uid = req.params.uid;
-            websiteModel
+        websiteModel
             .findAllWebsitesForUser(uid)
             .then(
                 function(websites){
@@ -41,7 +41,7 @@ module.exports = function(app) {
 
     function findWebsiteById(req, res){
         var wid = req.params.wid;
-            websiteModel
+        websiteModel
             .findWebsiteById(wid)
             .then(
                 function(website){
@@ -56,7 +56,7 @@ module.exports = function(app) {
     function updateWebsite(req, res){
         var wid = req.params.wid;
         var website = req.body;
-            websiteModel
+        websiteModel
             .updateWebsite(wid, website)
             .then(
                 function (website){

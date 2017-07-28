@@ -50,7 +50,6 @@
                 });
         }
 
-        // same as jose's findAllWebsitesForUser
         function findWebsitesByUser(userId) {
             var url = "/api/user/" +userId +"/website";
 
