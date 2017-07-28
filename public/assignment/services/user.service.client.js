@@ -22,7 +22,7 @@
         function register(userObj) {
             var url = "/api/user/register";
             return $http.post(url, userObj)
-                .then(function(reponse) {
+                .then(function(response) {
                     return response.data;
                 });
         }
