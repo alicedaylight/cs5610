@@ -1,16 +1,12 @@
 module.exports = function(app) {
     var websiteModel = require('../model/website/website.model.server');
 
-   // var websites = [];
-
     app.post('/api/user/:uid/website', createWebsite);
     app.get('/api/user/:uid/website', findAllWebsitesForUser);
     app.get('/api/website/:wid', findWebsiteById);
     app.put('/api/website/:wid', updateWebsite);
     app.delete("/api/user/:uid/website", deleteWebsitesByUser);
     app.delete("/api/user/:uid/website/:wid", deleteWebsiteFromUser);
-    //app.delete("/api/website/:websiteId", deleteWebsite);
-
 
     function createWebsite(req, res){
         var uid = req.params.uid;
@@ -91,14 +87,5 @@ module.exports = function(app) {
                 res.send(status);
             });
     }
-
-    // function deleteWebsite(req, res) {
-    //     var websiteId = req.params.websiteId;
-    //     websiteModel
-    //         .deleteWebsite(websiteId)
-    //         .then(function (status) {
-    //            res.send(status);
-    //         });
-    // }
 };
 

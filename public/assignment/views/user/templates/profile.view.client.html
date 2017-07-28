@@ -10,11 +10,6 @@
 </nav>
 
 
-<!--displays the error user not found-->
-
-
-<!--need to map to model or input will not be changed-->
-
 <div class="container">
     <div ng-show="vm.error" class="alert alert-danger">
         {{vm.error}}
@@ -56,8 +51,9 @@
     <a ng-click="model.deleteUser(model.user)"
        class="btn btn-danger btn-block">Unregister</a>
     <a class="btn btn-primary btn-block"
-       href="#!/user/{{model.user._id}}/website">Websites</a>
-    <a class="btn btn-danger btn-block" href="#!/login" >Logout</a>
+       href="#!/website">Websites</a>
+    <a class="btn btn-danger btn-block"
+       ng-click="model.logout()">Logout</a>
 </div>
 
 <nav class="navbar navbar-fixed-bottom cl-blue-navbar">

@@ -11,9 +11,54 @@
             "findUserByUsername": findUserByUsername,
             "findUserByCredentials": findUserByCredentials,
             "updateUser": updateUser,
-            "deleteUser": deleteUser
+            "deleteUser": deleteUser,
+            "login" : login,
+            "loggedIn" : loggedIn,
+            "logout" : logout,
+            "register" : register
         };
         return services;
+
+        function register(userObj) {
+            var url = "/api/user/register";
+            return $http.post(url, userObj)
+                .then(function(reponse) {
+                    return response.data;
+                });
+        }
+
+        function logout() {
+            var url = "/api/user/logout";
+            return $http.post(url)
+                .then(function(response){
+                    return response.data;
+                });
+
+        }
+
+        function loggedIn() {
+            var url = "/api/user/loggedin";
+            return $http.get(url)
+                .then(function(response){
+                    // user object or null or 0 flag to tell us user is not there
+                    return response.data;
+                });
+        }
+
+        function login(username, password) {
+            var url = "/api/user/login";
+            // schema passport is expecting
+            // json object with 2 attributes username and password
+            var credentials = {
+                username : username,
+                password : password
+            };
+            return $http.post(url, credentials)
+                .then(function(response){
+                    return response.data;
+                    // send response back to controller
+                });
+        }
 
 
         function createUser(user) {

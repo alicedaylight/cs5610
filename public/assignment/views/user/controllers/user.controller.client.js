@@ -6,6 +6,7 @@
         .controller("ProfileController", ProfileController);
 
     function LoginController($location, UserService) {
+        console.log("inside login controller");
         // vm is a variable bound to the controller instance that allow controllers and views to exchange data and events
         var vm = this;
         // declares a variable named "login" on the left hand side of the assignment
@@ -14,10 +15,12 @@
 
         function login(username, password) {
             UserService
-                .findUserByCredentials(username, password)
+                .login(username, password)
+                // found is the user object
                 .then(function(found) {
+                    console.log(found);
                     if(found !== null) {
-                        $location.url('/user/' + found._id);
+                        $location.url('/profile');
                     } else {
                         vm.message = "sorry," + username + " not found. please try again";
                     }
@@ -42,49 +45,51 @@
 
             UserService
                 .findUserByUsername(username)
-                .then(function(user) {
+                .then(function(error) {
                     vm.error = "Username already exists";
                 }, function (error) {
                     var newUser = {
                         username : username,
                         password : password
                     };
-                    UserService
-                        .createUser(newUser)
-                        .then(function(user) {
-                            $location.url("/user/" + user._id);
+                     UserService
+                        .register(newUser)
+                        .then(function() {
+                            $location.url('/profile');
                         }, function(error) {
                             console.log(error);
                         });
                 });
 
-            // var newUser = {
-            //     username: username,
-            //     password: password
-            // };
-            // UserService
-            //     .createUser(newUser)
-            //     // .findUserByUsername(username)
-            //     .then(function (user) {
-            //         $location.url('/user/' + user._id);
-            //     })
-            //     .catch(function (err) {
-            //         vm.error = "Username taken.";
-            //     });
         }
     }
 
-    // routeParams.. allow us to delcare all of the 'when's' in config ngRoute
+    // routeParams.. allow us to declare all of the 'when's' in config ngRoute
     //routeParams allow you to retrieve params from the route
-    function ProfileController($routeParams, $timeout, UserService, $location) {
+    function ProfileController($timeout, UserService, $location, currentUser) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        //vm.uid = $routeParams.uid;
+        vm.userId = currentUser._id;
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
+        vm.logout = logout;
 
-        UserService
-            .findUserById(vm.uid)
-            .then(renderUser, userError);
+        function logout() {
+            UserService
+                .logout()
+                .then(function(){
+                    $location.url('/login');
+                });
+        }
+
+        //
+        // UserService
+        //     .findUserById(vm.uid)
+        //     .then(renderUser, userError);
+        function init() {
+            renderUser(currentUser);
+        }
+        init();
 
         function updateUser(user) {
             UserService

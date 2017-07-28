@@ -5,12 +5,13 @@
         .controller("NewWebsiteController", NewWebsiteController)
         .controller("EditWebsiteController", EditWebsiteController);
 
-    function WebsiteListController($routeParams, WebsiteService) {
+    function WebsiteListController($routeParams, WebsiteService, currentUser) {
         var vm = this;
 
-        vm.uid = $routeParams.uid;
-        vm.wid = $routeParams.wid;
-        vm.pid = $routeParams.pid;
+        // vm.uid = $routeParams.uid;
+        // vm.wid = $routeParams.wid;
+        // vm.pid = $routeParams.pid;
+        vm.uid = currentUser._id;
 
 
             WebsiteService
@@ -22,7 +23,7 @@
             }
     }
 
-    function NewWebsiteController($routeParams, WebsiteService, $location) {2
+    function NewWebsiteController($routeParams, WebsiteService, $location) {
         var vm = this;
         vm.uid = $routeParams.uid;
         vm.wid = $routeParams.wid;
@@ -43,9 +44,9 @@
         }
     }
 
-    function EditWebsiteController($routeParams, WebsiteService, $location, $timeout) {
+    function EditWebsiteController($routeParams, WebsiteService, $location, currentUser) {
         var vm = this;
-        vm.uid = $routeParams.uid;
+        vm.uid = currentUser._id;
         vm.wid = $routeParams.wid;
         vm.pid = $routeParams.pid;
         // view is left hand
@@ -86,7 +87,7 @@
             WebsiteService
                 .deleteWebsiteFromUser(vm.uid, vm.wid)
                 .then(function() {
-                    $location.url("/user/" +vm.uid+"/website");
+                    $location.url("/website");
                 }, function () {
                     vm.error = "Unable to delete you";
                 });

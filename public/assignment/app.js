@@ -1,6 +1,6 @@
 (function () {
     angular
-        .module("WebAppMaker", ['ngRoute', 'wbdvDirectives']);
+        .module("WebAppMaker", ['ngRoute', 'wbdvDirectives', 'textAngular']);
      // console.log('loginController');
 })();
 // Notes

@@ -48,30 +48,41 @@
                 // internally you are going to refer to this controller as the variable
                 // "model"
             })
-            .when("/user/:uid", { //3
+            .when("/profile", { //3
                 templateUrl: "views/user/templates/profile.view.client.html",
                 controller: "ProfileController",
-                controllerAs: "model"
-                // resolve: { loggedin : checkLoggedin}
+                controllerAs: "model",
+                resolve: {
+                    // my own function goes out to server is user logged in?
+                    // no: reject, yes: resolve go through
+                    currentUser : checkLoggedIn
+
+                }
             })
             // collen says it's not a literal string
             // it's a placeholder and we're giving it the name uid
             // whatever is mapped there will be availible through
             // some variable called 'uid'
-            .when("/user/:uid/website", { //4
+            .when("/website", { //4
                 templateUrl: "views/website/templates/website-list.view.client.html",
                 controller: "WebsiteListController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser : checkLoggedIn
+                }
             })
             .when("/user/:uid/website/new", {
                 templateUrl:"views/website/templates/website-new.view.client.html",
                 controller: "NewWebsiteController",
                 controllerAs: "model"
             })
-            .when("/user/:uid/website/:wid", {
+            .when("/website/:wid", {
                 templateUrl: "views/website/templates/website-edit.view.client.html",
                 controller: "EditWebsiteController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    currentUser : checkLoggedIn
+                }
             })
             .when("/user/:uid/website/:wid/page", {
                 templateUrl: "views/page/templates/page-list.view.client.html",
@@ -111,13 +122,75 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
+            // .when('/', {
+            //     templateUrl : "views/user/templates/login.view.client.html",
+            //     // resolve: {
+            //     //     currentUser : checkCurrentUser
+            //     // }
+            // });
 
             .otherwise({
                 redirectTo : "/login"
             });
     }
 
-    // var checkLoggedin = function($q, $http, $location, $rootScope) {
+    // // if i get 0, i'm going to kick you to login page
+    // function checkLoggedIn($q, $http, $location, $rootScope) {
+    //
+    //     var deferred = $q.defer();
+    //
+    //     $http.get('/api/user/loggedin').success(function(user) {
+    //         // console.log("Receiving user from server");
+    //
+    //         $rootScope.errorMessage = null;
+    //         if (user !== '0') {
+    //             $rootScope.user = user;
+    //             deferred.resolve(user);
+    //             // $location.url('/profile');
+    //         } else {
+    //             deferred.reject();
+    //             $location.url('/');
+    //         }
+    //     });
+    //     return deferred.promise;
+    // }
+
+    function checkLoggedIn(UserService, $q, $location) {
+        var deferred = $q.defer();
+        console.log('checkLoggedIn')
+        UserService
+            .loggedIn()
+            .then(function (user) {
+                deferred.resolve(user);
+                console.log('checkLoggedIn success')
+
+            }, function() {
+                deferred.reject();
+                console.log('checkLoggedIn failure')
+
+                $location.url('/login');
+            });
+        return deferred.promise;
+    }
+
+
+    function checkCurrentUser(userService, $q) {
+        var deferred = $q.defer(); // defer wrong
+        userService
+            .loggedIn()
+            .then(function(user){
+                if(user === '0') {
+                    deferred.resolve({});
+                } else {
+                    deferred.resolve(user);
+                }
+            });
+
+        return deferred.promise;
+    }
+
+
+    // var checkLoggedIn = function($q, $http, $location, $rootScope) {
     //     var deferred = $q.defer();
     //
     //     $http.get('/api/loggedin').then(function(user) {
