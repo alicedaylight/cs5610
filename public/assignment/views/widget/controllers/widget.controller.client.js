@@ -66,10 +66,10 @@
 
 
         function createWidget() {
-            if (widget.name === undefined || widget.name === null || widget.name === "") {
-                vm.error = "Name cannot be empty.";
-                return;
-            }
+            // if (widget.name === undefined || widget.name === null || widget.name === "") {
+            //     vm.error = "Name cannot be empty.";
+            //     return;
+            // }
 
             if (vm.widgetType === 'IMAGE' || vm.widgetType === 'YOUTUBE') {
                 if (vm.widgetUrl === null || vm.widgetUrl === undefined) {
@@ -157,10 +157,10 @@
 
 
         function updateWidget() {
-            if (widget.name === undefined || widget.name === null || widget.name === "") {
-                vm.error = "Name cannot be empty.";
-                return;
-            }
+            // if (widget.name === undefined || widget.name === null || widget.name === "") {
+            //     vm.error = "Name cannot be empty.";
+            //     return;
+            // }
             var updatedWidget = {
                 // inside heading edit is model.widget.name
                 name: vm.widget.name,

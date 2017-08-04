@@ -28,19 +28,21 @@
         vm.newWebsite = newWebsite;
 
         function newWebsite(name, description) {
+            console.log("name: " + name);
             if (name === undefined || name === null || name === "") {
                 vm.error = "Name cannot be empty.";
                 return;
+            } else {
+                var newWebsite = {
+                    name: name,
+                    desc: description
+                };
+                return WebsiteService
+                    .createWebsite(vm.uid, newWebsite)
+                    .then(function (website) {
+                        $location.url("/website");
+                    });
             }
-            var newWebsite = {
-                name: name,
-                desc: description
-            };
-            return WebsiteService
-                .createWebsite(vm.uid, newWebsite)
-                .then (function (website) {
-                    $location.url("/website");
-                });
         }
     }
 

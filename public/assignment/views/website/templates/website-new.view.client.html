@@ -21,12 +21,12 @@
 
         <!--check url-->
         <div class="col-sm-8">
-            <!--<div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>-->
+            <div ng-show="model.error" class="alert alert-danger" role="alert">{{model.error}}</div>
 
             <div class="navbar-text pull-left cl-text-white no-margin-left">
             </div>
             <div class="navbar-text pull-right thirty-margin-right">
-                <a ng-click="model.newWebsite(model.user.name, model.user.description)" a href="#!/website" class="cl-text-white">
+                <a ng-click="model.newWebsite(model.name, model.description)" a href="#!/website" class="cl-text-white">
                     <span class="glyphicon glyphicon-ok"></span>
                 </a>
             </div>
@@ -48,6 +48,7 @@
 <!--// ng-repeat of new website that you created-->
 <!--// same as website list-->
 <div class="row container-fluid">
+
     <div class="col-sm-4 hidden-xs overflow-y">
 
         <div ng-repeat="website in model.websites" class="container">
@@ -72,13 +73,13 @@
         <form>
             <div class="form-group">
                 <label for="exampleInputName">Name</label>
-                <input ng-model="model.user.name"
+                <input ng-model="model.name"
                        type="text" class="form-control" id="exampleInputName" placeholder="Name">
 
             </div>
             <div class="form-group">
                 <label for="exampleInputDescription">Description</label>
-                <textarea input ng-model="model.user.description"
+                <textarea input ng-model="model.description"
                           type="text" class="form-control" id="exampleInputDescription" placeholder="Description" rows="5"></textarea>
 
             </div>
