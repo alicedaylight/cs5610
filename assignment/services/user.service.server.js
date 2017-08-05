@@ -30,13 +30,12 @@ module.exports = function(app){
     app.delete("/api/user/:userId", deleteUser);
 
     app.get('/auth/google',
-        passport.authenticate('google', { scope: ['profile'] }));
+        passport.authenticate('google', { scope: ['profile', 'email']}));
 
     app.get('/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/login' }),
+        passport.authenticate('google', { scope: ['profile', 'email']},  { failureRedirect: '/login' }),
         function(req, res) {
-            // Successful authentication, redirect home.
-            res.redirect('/');
+            res.redirect('/home');
         });
 
 
@@ -66,6 +65,7 @@ module.exports = function(app){
                     if(user) {
                         return done(null, user);
                     } else {
+                        console.log("profile ", profile);
                         var email = profile.emails[0].value;
                         var emailParts = email.split("@");
                         var newGoogleUser = {
@@ -78,7 +78,18 @@ module.exports = function(app){
                                 token: token
                             }
                         };
-                        return userModel.createUser(newGoogleUser);
+
+
+                        return userModel
+                            .createUser(newGoogleUser)
+                            .then(function(user) {
+                                console.log('new user', user)
+                                done(null, user)
+                            })
+                            .catch(function (err) {
+                                console.log('err', err);
+                                done(err);
+                            })
                     }
                 },
                 function(err) {
